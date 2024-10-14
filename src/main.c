@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:21:18 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/12 15:13:59 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/14 21:23:14 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,3 @@ int main(int ac, char **av, char **envp)
 		//exec(&sh);
 	}
 }
-// while (1)
-// {
-// 	kanbgheeek
-// 	kantsta 3lik
-// 	kanmout 3lik
-// 	kanbgheeek
-// 	kan3ch9ek
-// 	nti 7yati
-// 	nti chrikti
-// 	Kanmout 3lik
-// }
-
