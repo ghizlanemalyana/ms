@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:37:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/14 21:10:57 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/16 18:46:39 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ typedef struct s_shell
 // Parsing
 void		free_token(void *content);
 int			parse(t_shell *sh);
-bool	is_expandable(char *line);
+bool		is_expandable(char *line);
+int 		expand(t_shell *sh, t_token *token);
 
 // Signals
 void		sigint_handler(int sig);
@@ -117,5 +118,7 @@ char		*expand_string(t_shell *sh, char *line);
 
 // Utils
 char		*ft_strjoin_free(char *s1, char *s2, int to_free);
+bool		isoperator(t_token *token);
+bool		isredir(t_token *token);
 
 # endif

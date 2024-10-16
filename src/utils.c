@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 22:24:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/13 22:24:53 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/16 17:41:20 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,9 @@ bool	isredir(t_token *token)
 {
 	return (token->type == REDIR_OUT || token->type == REDIR_IN
 		|| token->type == APPEND || token->type == HEREDOC);
+}
+
+bool	isoperator(t_token *token)
+{
+	return (isredir(token) || token->type == PIPE);
 }

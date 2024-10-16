@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 16:19:08 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/14 20:56:11 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:15:03 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,20 @@ char	*expand_string(t_shell *sh, char *line)
 		line = line + len;
 	}
 	return (new);
+}
+
+int expand(t_shell *sh, t_token *token)
+{
+	if (token->quoted)
+		token->content = expand_string(sh, token->content);
+	else
+	{
+		token->content = get_env(sh->env, token->content);
+		if (token->content == NULL)
+			return (SUCCESS);
+		token->content = ft_strdup(token->content);
+	}
+	if (token->content == NULL)
+		return (FAILURE);
+	return (SUCCESS);
 }

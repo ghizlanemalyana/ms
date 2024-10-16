@@ -5,7 +5,7 @@ LIB_DIR = libft/
 LIBFT = $(LIB_DIR)libft.a
 NAME = minishell
 
-all: $(NAME)
+all: $(NAME) clean //! Remove clean dependency later
 
 $(NAME): $(OBJS) $(LIBFT)
 	cc -g -fsanitize=address $(OBJS) $(LIBFT) -lreadline -o $(NAME)

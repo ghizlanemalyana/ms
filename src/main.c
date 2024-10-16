@@ -6,12 +6,13 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:21:18 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/14 21:23:14 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/16 16:47:11 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+//echo "Hello $USER" | cat
 
 int main(int ac, char **av, char **envp)
 {

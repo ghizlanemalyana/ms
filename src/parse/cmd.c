@@ -6,13 +6,13 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 19:05:12 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/12 15:11:06 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/16 23:32:50 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	init_redir(t_cmd *cmd, t_list *token)
+static int	set_redir(t_cmd *cmd, t_list *token)
 {
 	t_list	*new;
 	t_redir	*redir;
@@ -21,7 +21,9 @@ static int	init_redir(t_cmd *cmd, t_list *token)
 	if (redir == NULL)
 		return (FAILURE);
 	redir->type = ((t_token *)token->content)->type;
-	if (((t_token *)token->next->content)->content != NULL)
+	if (redir->type == HEREDOC)
+		;//set_heredoc();
+	else if (((t_token *)token->next->content)->content != NULL)
 	{
 		redir->filename = ft_strdup(((t_token *)token->next->content)->content);
 		if (redir->filename == NULL)
@@ -51,7 +53,7 @@ static int	set_cmd(t_list *tokens, t_cmd *cmd)
 		token = tokens->content;
 		if (isredir(token))
 		{
-			if (init_redir(cmd, tokens) == FAILURE)
+			if (set_redir(cmd, tokens) == FAILURE)
 				return (FAILURE);
 			tokens = tokens->next;
 		}

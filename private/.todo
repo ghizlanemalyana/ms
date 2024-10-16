@@ -1,31 +1,10 @@
-// "ech"o Hi
+Heredoc
 
-// Token 1: 
-// 	content: ech
-// 	quoted: true
-// 	linked: true
-
-// Token 2: 
-// 	content: o
-// 	quoted: false
-// 	linked: false
-
-// Token 3: 
-// 	content: Hi
-// 	quoted: false
-// 	linked: false
-
-// Seperators between tokens:
-// 		| > < << >> ' ' '\t'
-// strchr("|>< \t'", c);
+Command
 
 
-e"ho"
+Environment
+Builtins
 
-e"cho"
-
-"e"cho
-"e""cho"
-"e"'cho'
-
-"ghiz""lane"
+Signals and exit status
+Cleanup
