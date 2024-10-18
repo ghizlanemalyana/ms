@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:37:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/16 18:46:39 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:52:42 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <errno.h>
+# include <fcntl.h>
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -30,6 +31,11 @@
 # define ERROR 258
 # define SUCCESS 0
 # define FAILURE 1
+
+# define WRITE_FD 0
+# define READ_FD 1
+
+extern int	g_received_signals;
 
 typedef enum e_type
 {
@@ -87,11 +93,22 @@ typedef struct s_shell
 	t_list		*cmds;
 	t_list		*env;
 	int			exit_status;
+	int			received_signals;
 }	t_shell;
 
 
 // t_type		get_type(char *word);
 // int			get_len(char *word, t_type type);
+
+// Builtins
+int			ft_echo(t_shell *sh, char **av);
+int			ft_cd(t_shell *sh, char **av);
+int			ft_pwd(t_shell *sh, char **av);
+int			ft_export(t_shell *sh, char **av);
+int			ft_unset(t_shell *sh, char **av);
+int			ft_env(t_shell *sh, char **av);
+int			ft_exit(t_shell *sh, char **av);
+bool		is_valid_key(char *key);
 
 // Parsing
 void		free_token(void *content);
@@ -110,11 +127,14 @@ int 		init_env(t_list **list, char **envp);
 
 void		print_tokens(t_list *tokens);
 void		display_cmds(t_list *cmd);
-void		free_cmd(t_cmd *cmd);
+void		free_cmd(void *content);
 bool		isredir(t_token *token);
 
 // Expansion
 char		*expand_string(t_shell *sh, char *line);
+
+// Heredoc
+int	set_heredoc(t_shell *sh, t_redir *redir, t_token *token);
 
 // Utils
 char		*ft_strjoin_free(char *s1, char *s2, int to_free);

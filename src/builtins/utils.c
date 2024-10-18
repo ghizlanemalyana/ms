@@ -1,38 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 17:06:07 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/18 23:28:32 by gmalyana         ###   ########.fr       */
+/*   Created: 2024/10/18 23:13:31 by gmalyana          #+#    #+#             */
+/*   Updated: 2024/10/18 23:13:48 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_echo(char **argv)
+bool	is_key_valid(char *key)
 {
-	int		i;
-	bool	n_flag;
-
-	n_flag = true;
-	while (argv)
+	if (ft_isalpha(*key) == false && *key != '_')
+		return (false);
+	while (*key)
 	{
-		if (ft_strncmp(argv, "-n", 2) == 0 && ft_strlen(&argv[0][1] == ft_strspn(&argv[0][1], "n")))
-			n_flag = false;
-		else
-			break ;
-		argv++;
+		if (ft_isalnum(*key) == false && *key != '_')
+			return (false);
+		key++;
 	}
-	while (*argv)
-	{
-		printf("%s", *argv);
-		if (*(argv + 1))
-			printf(" ");
-		argv++;
-	}
-	if (n_flag)
-		printf("\n");
+	return (true);
 }

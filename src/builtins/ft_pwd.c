@@ -6,13 +6,14 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 22:15:56 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/09/25 17:53:41 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:19:43 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../minishell.h"
 
-int	ft_pwd()
+//! To be updated
+int	ft_pwd(t_shell *sh)
 {
 	char *str = getcwd(NULL, 0);
 	if (str == NULL)
@@ -22,5 +23,5 @@ int	ft_pwd()
 	}
 	printf("%s\n", str);
 	free(str);
-	return (0);
+	return (SUCCESS);
 }

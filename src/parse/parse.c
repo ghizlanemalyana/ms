@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:06:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/16 22:49:35 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:21:16 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	get_len(char *word, t_type type)
 	else
 	{
 		if (word[0] == '"')
-			len = strcspn(word + 1, "\"");
+			len = ft_strcspn(word + 1, "\"");
 		else if (word[0] == '\'')
-			len = strcspn(word + 1, "'");
+			len = ft_strcspn(word + 1, "'");
 		else if (word[0] == '$')
 		{
 			if (word[1] == '?')
@@ -140,7 +140,7 @@ int check_syntax(t_shell *sh)
 	
 	tokens = sh->tokens;
 	//! Check if tokens aren't NULL
-	if (((t_token *)tokens->content)->type == PIPE)
+	if (tokens && ((t_token *)tokens->content)->type == PIPE)
 		return (ERROR);
 	if (isoperator(ft_lstlast(tokens)->content))
 			return (ERROR);
@@ -178,6 +178,5 @@ int	parse(t_shell *sh)
 		add_history(line);
 	free(line);
 	sh->exit_status = check_syntax(sh);
-	print_tokens(sh->tokens);
 	return (SUCCESS);
 }

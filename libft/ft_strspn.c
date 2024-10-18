@@ -1,38 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_strspn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 17:06:07 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/18 23:28:32 by gmalyana         ###   ########.fr       */
+/*   Created: 2024/10/18 00:19:35 by gmalyana          #+#    #+#             */
+/*   Updated: 2024/10/18 00:20:35 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "libft.h"
 
-void	ft_echo(char **argv)
+size_t	ft_strspn(const char *s, const char *accept)
 {
-	int		i;
-	bool	n_flag;
+	size_t	i;
 
-	n_flag = true;
-	while (argv)
+	i = 0;
+	while (s[i] != '\0')
 	{
-		if (ft_strncmp(argv, "-n", 2) == 0 && ft_strlen(&argv[0][1] == ft_strspn(&argv[0][1], "n")))
-			n_flag = false;
-		else
-			break ;
-		argv++;
+		if (ft_strchr(accept, s[i]) == NULL)
+			break;
+		i++;
 	}
-	while (*argv)
-	{
-		printf("%s", *argv);
-		if (*(argv + 1))
-			printf(" ");
-		argv++;
-	}
-	if (n_flag)
-		printf("\n");
+	return (i);
 }

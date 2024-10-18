@@ -1,10 +1,19 @@
-Heredoc
+Heredoc // To be continued after signals
 
-Command
-
+Command => pass envp
 
 Environment
+
 Builtins
+	unset
+	export
+	env
+	echo
+	exit
+
+	pwd
+	cd
 
 Signals and exit status
+
 Cleanup

@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:34:36 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/13 21:16:01 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/18 00:20:49 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ char	*ft_strchr(const char *s, int c);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_itoa(int n);
 char	*ft_strdup(const char *s1);
+size_t	ft_strspn(const char *s, const char *accept);
 size_t	ft_strcspn(const char *s1, const char *s2);
 char	*ft_strndup(const char *s1, size_t n);
 char	*ft_strrchr(const char *s, int c);

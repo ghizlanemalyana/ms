@@ -6,65 +6,75 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 17:08:30 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/09/02 20:07:49 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:18:23 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../minishell.h"
 
-// void	ft_print_env(t_list *env)
-// {
-// 	t_env	*tmp;
+void	ft_print_env(t_list *env)
+{
+	t_env	*tmp;
 
-// 	while (tmp)
-// 	{
-// 		tmp = (t_env *)env->content;
-// 		if (tmp->value != NULL)
-// 			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
-// 		else
-// 			printf("declare -x %s\n", tmp->key);
-// 		env = env->next;
-// 	}
-// }
+	while (tmp)
+	{
+		tmp = (t_env *)env->content;
+		if (tmp->value != NULL)
+			printf("declare -x %s=\"%s\"\n", tmp->key, tmp->value);
+		else
+			printf("declare -x %s\n", tmp->key);
+		env = env->next;
+	}
+}
 
-// void 	ft_export_add(t_list **env, char *key, char *value)
-// {
-// 	t_env	*new_env;
-// 	t_list	*new;
+int 	export(t_shell *sh, char *key, char *value, bool append)
+{
+	int		status;
+	char	*new_key;
 
-// 	new_env = malloc(sizeof(t_env));
-// 	if (!new_env)
-// 		return ;
-// 	if (value != NULL)
-// 		new_env->key = ft_substr(key, 0, ft_strchr(key, '=') - key);
-// 	else
-// 		new_env->key = key;
-// 	new_env->value = value;
-// 	new = ft_lstnew(new_env);
-// 	if (!new)
-// 	{
-// 		free(new_env);
-// 		return ;
-// 	}
-// 	ft_lstadd_back(env, new);
-// }
+	if (value != NULL)
+		new_key = ft_substr(key, 0, ft_strchr(key, '=') - key - append);
+	else
+		new_key = ft_strdup(key);
+	if (new_key == NULL)
+		return (FAILURE);
+	if (is_key_valid(new_key) == false)
+	{
+		free(new_key);
+		ft_printf("minishell: export: `%s': not a valid identifier\n", key);
+		return (ERROR);
+	}
+	if (append)
+		status = append_env(&sh->env, new_key, value);
+	else
+		status = set_env(&sh->env, new_key, value);
+	free(new_key);
+	return (status);
+}
 
+int	ft_export(t_shell *shell, char **av)
+{
+	char	*ptr;
+	int		status;
+	int		ret;
 
-// void	ft_export(t_shell *shell, char **av)
-// {
-// 	if (av[1] == NULL)
-// 		ft_print_env(shell->env);
-// 	else
-// 	{
-// 		while (av)
-// 		{        
-			
-// 			if (ft_strchr(av, '='))
-// 				ft_export_add(shell->env, av, ft_strchr(av, '=') + 1);
-// 			else
-// 				ft_export_add(shell->env, av, NULL);
-// 			av++;
-// 		}
-// 	}
-// }
-
+	ret = SUCCESS;
+	if (av[0] == NULL)
+		return (ft_print_env(shell->env), SUCCESS);
+	while (*av)
+	{
+		ptr = ft_strchr(*av, '=');
+		if (ptr == NULL)
+			status = export(shell->env, ptr, NULL, false);
+		else if (ptr - ft_strchr(*av, '+') == 1)
+			status = export(shell->env, *av, ptr + 1, true);
+		else
+			status = export(shell->env, *av, ptr + 1, false);
+		if (status == FAILURE)
+			return (FAILURE);
+		if (status == ERROR)
+			ret = FAILURE;
+		av++;
+	}
+	return (ret);
+}

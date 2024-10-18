@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:49:42 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/12 15:00:15 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/17 18:19:33 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ void	free_token(void *content)
 {
 	t_token	*token;
 
-	token = (t_token *)content;
+	token = content;
 	free(token->content);
 	free(token);
 }
 
-void	free_cmd(t_cmd *cmd)
+void	free_cmd(void *content)
 {
-	int i;
+	int		i;
+	t_cmd	*cmd;
 
+	cmd = content;
 	i = 0;
 	if (cmd->argv != NULL)
 	{

@@ -6,13 +6,13 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 19:05:12 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/16 23:32:50 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/17 23:32:03 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-static int	set_redir(t_cmd *cmd, t_list *token)
+static int	set_redir(t_shell *sh, t_cmd *cmd, t_list *node)
 {
 	t_list	*new;
 	t_redir	*redir;
@@ -20,12 +20,12 @@ static int	set_redir(t_cmd *cmd, t_list *token)
 	redir = ft_calloc(sizeof(t_redir), 1);
 	if (redir == NULL)
 		return (FAILURE);
-	redir->type = ((t_token *)token->content)->type;
+	redir->type = ((t_token *)node->content)->type;
 	if (redir->type == HEREDOC)
-		;//set_heredoc();
-	else if (((t_token *)token->next->content)->content != NULL)
+		set_heredoc(sh, redir, node->next->content);//! Protection
+	else if (((t_token *)node->next->content)->content != NULL)
 	{
-		redir->filename = ft_strdup(((t_token *)token->next->content)->content);
+		redir->filename = ft_strdup(((t_token *)node->next->content)->content);
 		if (redir->filename == NULL)
 		{
 			free(redir);
@@ -42,7 +42,7 @@ static int	set_redir(t_cmd *cmd, t_list *token)
 	return (SUCCESS);
 }
 
-static int	set_cmd(t_list *tokens, t_cmd *cmd)
+static int	set_cmd(t_shell *sh, t_list *tokens, t_cmd *cmd)
 {
 	t_token	*token;
 	int		i;
@@ -53,7 +53,7 @@ static int	set_cmd(t_list *tokens, t_cmd *cmd)
 		token = tokens->content;
 		if (isredir(token))
 		{
-			if (set_redir(cmd, tokens) == FAILURE)
+			if (set_redir(sh, cmd, tokens) == FAILURE)
 				return (FAILURE);
 			tokens = tokens->next;
 		}
@@ -105,7 +105,7 @@ int init_cmd(t_shell *sh)
 		cmd->argc = count_argc(tokens);
 		cmd->argv = ft_calloc(sizeof(char *) , (cmd->argc + 1));
 		node = ft_lstnew(cmd);
-		if (cmd->argv == NULL || node == NULL || set_cmd(tokens, cmd) == FAILURE)
+		if (cmd->argv == NULL || node == NULL || set_cmd(sh, tokens, cmd) == FAILURE)
 			return (free_cmd(cmd), FAILURE);
 		ft_lstadd_back(&sh->cmds, node);
 		while (tokens != NULL && ((t_token *)tokens->content)->type != PIPE)

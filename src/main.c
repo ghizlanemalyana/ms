@@ -6,13 +6,13 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:21:18 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/16 16:47:11 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/18 23:54:35 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-//echo "Hello $USER" | cat
+int	g_received_signals;
 
 int main(int ac, char **av, char **envp)
 {
@@ -26,8 +26,9 @@ int main(int ac, char **av, char **envp)
 	while (1)
 	{
 		parse(&sh);
-		// init_cmd(&sh);
+		init_cmd(&sh);
 		ft_lstclear(&sh.tokens, free);
+		ft_lstclear(&sh.cmds, free_cmd);
 		//exec(&sh);
 	}
 }
