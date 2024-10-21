@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 17:08:30 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/18 23:18:23 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 01:03:18 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int 	export(t_shell *sh, char *key, char *value, bool append)
 	if (is_key_valid(new_key) == false)
 	{
 		free(new_key);
-		ft_printf("minishell: export: `%s': not a valid identifier\n", key);
+		printf("minishell: export: `%s': not a valid identifier\n", key);
 		return (ERROR);
 	}
 	if (append)
@@ -65,11 +65,11 @@ int	ft_export(t_shell *shell, char **av)
 	{
 		ptr = ft_strchr(*av, '=');
 		if (ptr == NULL)
-			status = export(shell->env, ptr, NULL, false);
+			status = export(shell, ptr, NULL, false);
 		else if (ptr - ft_strchr(*av, '+') == 1)
-			status = export(shell->env, *av, ptr + 1, true);
+			status = export(shell, *av, ptr + 1, true);
 		else
-			status = export(shell->env, *av, ptr + 1, false);
+			status = export(shell, *av, ptr + 1, false);
 		if (status == FAILURE)
 			return (FAILURE);
 		if (status == ERROR)

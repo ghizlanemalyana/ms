@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:49:42 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/17 18:19:33 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/20 19:06:21 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,8 @@ void	free_cmd(void *content)
 
 	cmd = content;
 	i = 0;
-	if (cmd->argv != NULL)
-	{
-		while (cmd->argv[i])
-		{
-			free(cmd->argv[i]);
-			i++;
-		}
-	}
-	free(cmd->argv);
+	free_array(cmd->argv);
+	free_array(cmd->envp);
+	ft_lstclear(&cmd->redirs, free_env);
 	free(cmd);
 }

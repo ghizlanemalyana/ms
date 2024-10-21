@@ -6,12 +6,12 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 21:25:55 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/19 00:32:24 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 01:24:07 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../minishell.h"
-
+# include <limits.h>
 int		is_valide_number(char *str)
 {
 	int 	i;

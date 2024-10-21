@@ -6,17 +6,17 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 16:06:05 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/09/01 21:36:23 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 00:59:31 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../minishell.h"
 
-void	ft_env(t_list *env)
+void	ft_env(t_shell *sh)
 {
 	t_list	*tmp;
 
-	tmp = env;
+	tmp = sh->env;
 	while (tmp)
 	{
 		if (((t_env *)tmp->content)->value)

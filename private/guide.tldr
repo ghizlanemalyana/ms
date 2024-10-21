@@ -2877,7 +2877,7 @@
 				"color": "black",
 				"size": "m",
 				"w": 16,
-				"text": "l",
+				"text": "c",
 				"font": "mono",
 				"textAlign": "start",
 				"autoSize": true,
@@ -2969,7 +2969,7 @@
 				"color": "black",
 				"size": "m",
 				"w": 16,
-				"text": "-",
+				"text": "f",
 				"font": "mono",
 				"textAlign": "start",
 				"autoSize": true,
@@ -3015,7 +3015,7 @@
 				"color": "black",
 				"size": "m",
 				"w": 16,
-				"text": "s",
+				"text": "d",
 				"font": "mono",
 				"textAlign": "start",
 				"autoSize": true,
@@ -3107,7 +3107,7 @@
 				"color": "black",
 				"size": "m",
 				"w": 16,
-				"text": "l",
+				"text": "1",
 				"font": "mono",
 				"textAlign": "start",
 				"autoSize": true,
@@ -16476,9 +16476,9 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 5634.392595128731,
-			"y": 1447.2066676900176,
-			"lastActivityTimestamp": 1729090839941,
+			"x": 5609.93482403508,
+			"y": 2235.6681430725353,
+			"lastActivityTimestamp": 1729448338809,
 			"meta": {}
 		},
 		{
@@ -16498,8 +16498,8 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1251.360107421875,
-				"h": 1366.56005859375
+				"w": 1723.2000732421875,
+				"h": 1290
 			},
 			"insets": [
 				false,
@@ -16514,7 +16514,7 @@
 			"isChatting": false,
 			"highlightedUserIds": [],
 			"isFocused": true,
-			"devicePixelRatio": 1.3888888359069824,
+			"devicePixelRatio": 1.6666666269302368,
 			"isCoarsePointer": false,
 			"isHoveringCanvas": true,
 			"openMenus": [],
@@ -16527,9 +16527,11 @@
 			"typeName": "instance"
 		},
 		{
-			"editingShapeId": null,
+			"editingShapeId": "shape:oMjaC4H695IPJszgBoD8i",
 			"croppingShapeId": null,
-			"selectedShapeIds": [],
+			"selectedShapeIds": [
+				"shape:oMjaC4H695IPJszgBoD8i"
+			],
 			"hoveredShapeId": null,
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
@@ -16540,9 +16542,9 @@
 			"typeName": "instance_page_state"
 		},
 		{
-			"x": -2865.5523607283026,
-			"y": 464.7017356062861,
-			"z": 0.3120318384064638,
+			"x": -4465.167500350246,
+			"y": -1397.3531647172922,
+			"z": 0.8361415819890049,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"

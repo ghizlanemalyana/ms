@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 21:48:56 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/19 00:01:57 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 00:45:51 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,6 @@ int	put_line(t_shell *sh, int fd, char *line, bool quoted)
 	return (SUCCESS);
 }
 
-void	heredoc_handler(int sig)
-{
-	(void)sig;
-	g_received_signals++;
-	close(STDIN_FILENO);
-}
-
 int	set_heredoc(t_shell *sh, t_redir *redir, t_token *token)
 {
 	char	*line;
@@ -82,7 +75,7 @@ int	set_heredoc(t_shell *sh, t_redir *redir, t_token *token)
 			return (close_fds(fds), free(line), FAILURE);
 		free(line);
 	}
-	// reset signals
+	set_signals_handlers();
 	dup2(stdin_fd, STDIN_FILENO);
 	close(stdin_fd);
 	close(fds[WRITE_FD]);

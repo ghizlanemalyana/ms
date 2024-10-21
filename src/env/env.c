@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:00:05 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/18 23:43:38 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/19 17:10:48 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,26 +114,4 @@ char	*get_env(t_list *list, char *key)
 		list = list->next;
 	}
 	return (NULL);
-}
-
-int init_env(t_list **list, char **envp)
-{
-	t_list	*node;
-	t_env	*env;
-	int 	i;
-	
-	i = 0;
-	// use ft_export instead
-	while (envp[i] != NULL)
-	{
-		env = new_env(envp[i]);
-		if (env == NULL)
-			return (FAILURE);
-		node = ft_lstnew(env);
-		if (node == NULL)
-			return (free_env(env), FAILURE);
-		ft_lstadd_back(list, node);
-		i++;
-	}
-	return (SUCCESS);
 }

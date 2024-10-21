@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:06:07 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/18 23:28:32 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 00:58:38 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	ft_echo(char **argv)
 	bool	n_flag;
 
 	n_flag = true;
-	while (argv)
+	while (*argv)
 	{
-		if (ft_strncmp(argv, "-n", 2) == 0 && ft_strlen(&argv[0][1] == ft_strspn(&argv[0][1], "n")))
+		if (ft_strncmp(*argv, "-n", 2) == 0
+			&& ft_strlen(*argv) - 1 == ft_strspn(&argv[0][1], "n"))
 			n_flag = false;
 		else
 			break ;

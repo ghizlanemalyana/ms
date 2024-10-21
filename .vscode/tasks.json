@@ -7,9 +7,10 @@
             "args": [
                 "-g",
                 "-lreadline",
-                "src/*.c",
-                "src/*/*.c",
-                "libft/*.c",
+                "*.c",
+                // "src/*.c",
+                // "src/*/*.c",
+                // "libft/*.c",
                 "-o",
                 "minish_db"
             ],

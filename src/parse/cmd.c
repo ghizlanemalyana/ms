@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 19:05:12 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/17 23:32:03 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/20 02:37:56 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,11 @@ static int	set_redir(t_shell *sh, t_cmd *cmd, t_list *node)
 	{
 		redir->filename = ft_strdup(((t_token *)node->next->content)->content);
 		if (redir->filename == NULL)
-		{
-			free(redir);
-			return (FAILURE);
-		}
+			return (free(redir),FAILURE);
 	}
 	new = ft_lstnew(redir);
 	if (new == NULL)
-	{
-		free(redir);
-		return(FAILURE);
-	}
+		return(free(redir), FAILURE);
 	ft_lstadd_back(&cmd->redirs, new);
 	return (SUCCESS);
 }
@@ -90,6 +84,34 @@ static int	count_argc(t_list *tokens)
 	return(counter);
 }
 
+char **list_to_array(t_list *list)
+{
+	char	**array;
+	t_env	*env;
+	int		i;
+
+	array = ft_calloc(sizeof(char *), ft_lstsize(list) + 1);
+	if (array == NULL)
+		return (NULL);
+	i = 0;
+	while (list != NULL)
+	{
+		env = list->content;
+		if (env->value != NULL)
+		{
+			array[i] = ft_strjoin(env->key, "=");
+			if (array[i] == NULL)
+				return (free_array(array), NULL);
+			array[i] = ft_strjoin_free(array[i], env->value, 1);
+			if (array[i] == NULL)
+				return (free_array(array), NULL);
+			i++;
+		}
+		list = list->next;
+	}
+	return (array);
+}
+
 int init_cmd(t_shell *sh)
 {
 	t_cmd	*cmd;
@@ -104,8 +126,10 @@ int init_cmd(t_shell *sh)
 			return (FAILURE);
 		cmd->argc = count_argc(tokens);
 		cmd->argv = ft_calloc(sizeof(char *) , (cmd->argc + 1));
+		cmd->envp = list_to_array(sh->env);
 		node = ft_lstnew(cmd);
-		if (cmd->argv == NULL || node == NULL || set_cmd(sh, tokens, cmd) == FAILURE)
+		if (cmd->argv == NULL || cmd->envp == NULL || node == NULL
+			|| set_cmd(sh, tokens, cmd) == FAILURE)
 			return (free_cmd(cmd), FAILURE);
 		ft_lstadd_back(&sh->cmds, node);
 		while (tokens != NULL && ((t_token *)tokens->content)->type != PIPE)

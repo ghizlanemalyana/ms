@@ -31,6 +31,10 @@
 		"vector": "c",
 		"stdio.h": "c",
 		"stdbool.h": "c",
-		"history.h": "c"
+		"history.h": "c",
+		"stdint.h": "c",
+		"fcntl.h": "c",
+		"*.todo": "c",
+		"termios.h": "c"
 	}
 }

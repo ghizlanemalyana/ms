@@ -6,22 +6,23 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 22:15:56 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/18 23:19:43 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/20 23:19:02 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "../../minishell.h"
 
-//! To be updated
 int	ft_pwd(t_shell *sh)
 {
-	char *str = getcwd(NULL, 0);
-	if (str == NULL)
+	char	*pwd;
+
+	pwd = getcwd(NULL, 0);
+	if (pwd == NULL)
 	{
-		perror("minishell : ");
-		return (1);
+		perror("pwd: error retrieving current directory: getcwd: cannot access parent directories");
+		return (FAILURE);
 	}
-	printf("%s\n", str);
-	free(str);
+	printf("%s\n", pwd);
+	free(pwd);
 	return (SUCCESS);
 }

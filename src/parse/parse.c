@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:06:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/17 18:21:16 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 01:39:46 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_type	get_type(char *word)
 //TODO to be updated later
 int	get_len(char *word, t_type type)
 {
-	int len = 0;
+	int len;
 
 	if (type == PIPE || type == REDIR_OUT || type == REDIR_IN)
 		return (1);
@@ -56,7 +56,7 @@ int	get_len(char *word, t_type type)
 				len++;
 		}
 		else
-			len = strcspn(word, "|>< \t\"'$");
+			len = ft_strcspn(word, "|>< \t\"'$");
 		return (len);
 	}
 }
@@ -139,7 +139,8 @@ int check_syntax(t_shell *sh)
 	t_token	*next;
 	
 	tokens = sh->tokens;
-	//! Check if tokens aren't NULL
+	if (tokens == NULL)
+		return (SUCCESS);
 	if (tokens && ((t_token *)tokens->content)->type == PIPE)
 		return (ERROR);
 	if (isoperator(ft_lstlast(tokens)->content))
@@ -159,24 +160,29 @@ int check_syntax(t_shell *sh)
 int	parse(t_shell *sh)
 {
 	char	*line;
+	int		status;
 	int		i;
 
 	i = 0;
 	line = readline(PROMPT);
 	if (line == NULL)
-		exit(0);
-	while (line[i] && line[i] == ' ' || line[i] == '\t')
+		my_exit(sh);
+	if (ft_strlen(line) > 0)
+		add_history(line);
+	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
 	while (line[i] != '\0')
 	{
-		if (create_token(sh, line, &i) != SUCCESS)
-			exit(1);
-		while (line[i] && line[i] == ' ' || line[i] == '\t')
+		status = create_token(sh, line, &i);
+		if (status != SUCCESS)
+			return (free(line), ft_lstclear(&sh->tokens, free_token), status);
+		while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 			i++;
 	}
-	if (ft_strlen(line) > 0)
-		add_history(line);
 	free(line);
-	sh->exit_status = check_syntax(sh);
-	return (SUCCESS);
+	if (check_syntax(sh) != SUCCESS)
+		return (ft_lstclear(&sh->tokens, free_token), ERROR);
+	if (init_cmd(sh) == FAILURE)
+		return (ft_lstclear(&sh->tokens, free_token), FAILURE);
+	return (ft_lstclear(&sh->tokens, free), SUCCESS);
 }

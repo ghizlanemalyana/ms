@@ -8,10 +8,10 @@ NAME = minishell
 all: $(NAME) clean //! Remove clean dependency later
 
 $(NAME): $(OBJS) $(LIBFT)
-	cc -g -fsanitize=address $(OBJS) $(LIBFT) -lreadline -o $(NAME)
+	cc $(OBJS) $(LIBFT) -lreadline -L /Users/gmalyana/.brew/opt/readline/lib -o $(NAME)
 
 %.o : %.c minishell.h
-	cc -g -fsanitize=address $(flags) -c $< -o $@
+	cc -I /Users/gmalyana/.brew/opt/readline/include -c $< -o $@ 
 
 $(LIBFT) :
 	make -C $(LIB_DIR)

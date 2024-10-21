@@ -6,66 +6,11 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 22:24:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/16 17:41:20 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 01:09:21 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-#define GREEN "\033[0;32m"
-#define RESET "\033[0m"
-
-void	print_tokens(t_list *tokens)
-{
-	t_list	*node;
-	t_token	*token;
-
-	node = tokens;
-	while (node)
-	{
-		token = node->content;
-		if (token->type == ARG)
-		{
-			printf("\033[1;32mARG\033[0m\n");
-			printf("  content: \033[1;94m%s\033[0m\n", token->content);
-			if (token->linked || token->quoted || token->expandable)
-			{
-				printf("  status: ");
-				if (token->quoted)
-					printf(GREEN"quoted "RESET);
-				if (token->expandable)
-					printf(GREEN"expandable"RESET);
-				printf("\n");
-			}
-		}
-		else if (token->type == PIPE)
-			printf("\033[0;93mPIPE\033[0m\n");
-		else if (token->type == REDIR_OUT)
-			printf("\033[0;95mREDIR OUT\033[0m\n");
-		else if (token->type == REDIR_IN)
-			printf("\033[0;95mREDIR IN\033[0m\n");
-		else if (token->type == APPEND)
-			printf("\033[0;96mAPPEND\033[0m\n");
-		else if (token->type == HEREDOC)
-			printf("\033[0;96mHEREDOC\033[0m\n");
-		node = node->next;
-		if (node)
-			printf("\n");
-	}
-}
-
-void	display_cmds(t_list *cmd)
-{
-	int i = 0;
-	char **args;
-	args = ((t_cmd *)cmd->content)->argv;
-	printf("command : \n");
-	while (args[i] != NULL)
-	{
-		printf("%s\n", args[i]);
-		i++;
-	}	
-}
 
 char	*ft_strjoin_free(char *s1, char *s2, int to_free)
 {
@@ -93,4 +38,27 @@ bool	isredir(t_token *token)
 bool	isoperator(t_token *token)
 {
 	return (isredir(token) || token->type == PIPE);
+}
+
+void	my_exit(t_shell *sh)
+{
+	ft_lstclear(&sh->cmds, free_cmd);
+	ft_lstclear(&sh->env, free_env);
+	ft_lstclear(&sh->hidden_env, free_env);
+	rl_clear_history();
+	printf("\033[F\033[2Cexit\n");
+	exit(EXIT_SUCCESS);
+}
+
+void	free_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }

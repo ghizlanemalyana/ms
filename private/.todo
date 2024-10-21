@@ -1,21 +1,12 @@
-Heredoc // To be continued after signals
-
-Command => pass envp
-
-Environment
-
 Builtins
-	unset
-	export
-	env
-	echo
-	exit
-
 	pwd
-	cd
 
 Signals and exit status
+Heredoc // To be continued after signals
 
-Cleanup
+Cleanup:
+	Print error
+	Norminette
+	replace system functions with their own implementation
 
 i love you baby <3
