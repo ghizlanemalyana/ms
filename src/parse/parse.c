@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:06:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/21 01:39:46 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:42:51 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_type	get_type(char *word)
 //TODO to be updated later
 int	get_len(char *word, t_type type)
 {
-	int len;
+	int	len;
 
 	if (type == PIPE || type == REDIR_OUT || type == REDIR_IN)
 		return (1);
@@ -67,6 +67,8 @@ int	add_token(t_shell *sh, t_token *new)
 	char	*tmp;
 	t_token	*last;
 
+	if (new->expandable && expand(sh, new) == FAILURE)
+		return (FAILURE);
 	if (sh->tokens != NULL)
 	{
 		last = ft_lstlast(sh->tokens)->content;
@@ -80,13 +82,11 @@ int	add_token(t_shell *sh, t_token *new)
 			return (SUCCESS);
 		}
 	}
-	if (new->expandable && expand(sh, new) == FAILURE)
-		return (FAILURE);
 	node = ft_lstnew(new);
 	if (node == NULL)
 		return (FAILURE);
 	ft_lstadd_back(&sh->tokens, node);
-	return(SUCCESS);
+	return (SUCCESS);
 }
 
 static bool	is_token_expandable(t_shell *sh, t_token *token)
@@ -97,7 +97,7 @@ static bool	is_token_expandable(t_shell *sh, t_token *token)
 		&& ((t_token *)(ft_lstlast(sh->tokens)->content))->type == HEREDOC)
 		return (false);
 	content = token->content;
-	while(*content != '\0')
+	while (*content != '\0')
 	{
 		if (is_expandable(content))
 			return (true);
@@ -106,7 +106,7 @@ static bool	is_token_expandable(t_shell *sh, t_token *token)
 	return (false);
 }
 
-int create_token(t_shell *sh, char *line, int *i)
+int	create_token(t_shell *sh, char *line, int *i)
 {
 	t_token	*token;
 
@@ -132,22 +132,22 @@ int create_token(t_shell *sh, char *line, int *i)
 	return (SUCCESS);
 }
 
-int check_syntax(t_shell *sh)
+int	check_syntax(t_shell *sh)
 {
 	t_list	*tokens;
 	t_token	*current;
 	t_token	*next;
-	
+
 	tokens = sh->tokens;
 	if (tokens == NULL)
 		return (SUCCESS);
 	if (tokens && ((t_token *)tokens->content)->type == PIPE)
 		return (ERROR);
 	if (isoperator(ft_lstlast(tokens)->content))
-			return (ERROR);
+		return (ERROR);
 	while (tokens->next != NULL)
 	{
-	 	current = tokens->content;
+		current = tokens->content;
 		next = tokens->next->content;
 		if (isredir(current) && isoperator(next))
 			return (ERROR);
@@ -157,32 +157,47 @@ int check_syntax(t_shell *sh)
 	}
 	return (SUCCESS);
 }
+
+void	update_exit_status(t_shell *sh)
+{
+	if (g_received_signals != sh->received_signals)
+	{
+		sh->exit_status = 1;
+		sh->received_signals = g_received_signals;
+	}
+}
+
 int	parse(t_shell *sh)
 {
 	char	*line;
 	int		status;
 	int		i;
 
-	i = 0;
 	line = readline(PROMPT);
 	if (line == NULL)
 		my_exit(sh);
 	if (ft_strlen(line) > 0)
 		add_history(line);
+	update_exit_status(sh);
+	i = 0;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
 	while (line[i] != '\0')
 	{
 		status = create_token(sh, line, &i);
 		if (status != SUCCESS)
-			return (free(line), ft_lstclear(&sh->tokens, free_token), status);
+			break ;
 		while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 			i++;
 	}
+	if (status == SUCCESS)
+	{
+		status = check_syntax(sh);
+		if (status == SUCCESS)
+			status = init_cmd(sh);
+	}
 	free(line);
-	if (check_syntax(sh) != SUCCESS)
-		return (ft_lstclear(&sh->tokens, free_token), ERROR);
-	if (init_cmd(sh) == FAILURE)
-		return (ft_lstclear(&sh->tokens, free_token), FAILURE);
-	return (ft_lstclear(&sh->tokens, free), SUCCESS);
+	print_tokens(sh->tokens);
+	ft_lstclear(&sh->tokens, free_token);
+	return (status);
 }

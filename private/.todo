@@ -10,5 +10,5 @@ Cleanup:
 	Print error
 	Norminette
 	replace system functions with their own implementation
-
+	Makefile
 i love you baby <3

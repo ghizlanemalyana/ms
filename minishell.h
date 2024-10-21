@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:37:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/21 01:08:54 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:42:13 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 //! Debug
 # define TRUE "\033[0;32mtrue\033[0m"
 # define FALSE "\033[0;31mfalse\033[0m"
+void	print_tokens(t_list *tokens);
 
 # define ERROR 258
 # define SUCCESS 0

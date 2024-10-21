@@ -1,11 +1,11 @@
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS =  -Wall -Wextra -Werror
 SOURCES = $(shell find src/ -type f -name "*.c")
 OBJS = $(SOURCES:.c=.o)
 LIB_DIR = libft/
 LIBFT = $(LIB_DIR)libft.a
 NAME = minishell
 
-all: $(NAME) clean //! Remove clean dependency later
+all: $(NAME) clean #! Remove clean dependency later
 
 $(NAME): $(OBJS) $(LIBFT)
 	cc $(OBJS) $(LIBFT) -lreadline -L /Users/gmalyana/.brew/opt/readline/lib -o $(NAME)
@@ -25,5 +25,3 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
-
-

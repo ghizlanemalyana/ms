@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 19:05:12 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/20 02:37:56 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:43:26 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ static int	set_redir(t_shell *sh, t_cmd *cmd, t_list *node)
 	{
 		redir->filename = ft_strdup(((t_token *)node->next->content)->content);
 		if (redir->filename == NULL)
-			return (free(redir),FAILURE);
+			return (free(redir), FAILURE);
 	}
 	new = ft_lstnew(redir);
 	if (new == NULL)
-		return(free(redir), FAILURE);
+		return (free(redir), FAILURE);
 	ft_lstadd_back(&cmd->redirs, new);
 	return (SUCCESS);
 }
@@ -51,7 +51,7 @@ static int	set_cmd(t_shell *sh, t_list *tokens, t_cmd *cmd)
 				return (FAILURE);
 			tokens = tokens->next;
 		}
-		else if (token->type == ARG)
+		else if (token->type == ARG && token->content != NULL)
 		{
 			cmd->argv[i] = ft_strdup(token->content);
 			if (cmd->argv[i] == NULL)
@@ -59,7 +59,7 @@ static int	set_cmd(t_shell *sh, t_list *tokens, t_cmd *cmd)
 			i++;
 		}
 		else
-			break;
+			break ;
 		tokens = tokens->next;
 	}
 	return (SUCCESS);
@@ -67,24 +67,25 @@ static int	set_cmd(t_shell *sh, t_list *tokens, t_cmd *cmd)
 
 static int	count_argc(t_list *tokens)
 {
-	int		counter = 0;
+	int		counter;
 	t_token	*token;
 
+	counter = 0;
 	while (tokens != NULL)
 	{
 		token = tokens->content;
 		if (isredir(token))
 			tokens = tokens->next;
-		else if (token->type == ARG)
+		else if (token->type == ARG && token->content != NULL) //!
 			counter++;
 		else
 			break ;
 		tokens = tokens->next;
 	}
-	return(counter);
+	return (counter);
 }
 
-char **list_to_array(t_list *list)
+char	**list_to_array(t_list *list)
 {
 	char	**array;
 	t_env	*env;

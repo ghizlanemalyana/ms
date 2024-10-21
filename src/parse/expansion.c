@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 16:19:08 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/15 20:15:03 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:43:06 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ bool	is_expandable(char *line)
 
 int	count_var_len(char *str)
 {
-	int i;
+	int	i;
 
 	if (*(str + 1) == '?')
 		i = 1;
 	else
 	{
 		i = 1;
-		while ((ft_isalpha(str[i]) || str[i] == '_') &&
-			 (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+		while ((ft_isalpha(str[i]) || str[i] == '_')
+			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
 			i++;
 	}
 	return (i + 1);
@@ -58,8 +58,8 @@ char	*expand_env(t_shell *sh, char *line, int len)
 char	*expand_string(t_shell *sh, char *line)
 {
 	char	*new;
-	char 	*str;
-	size_t 	len;
+	char	*str;
+	size_t	len;
 
 	new = NULL;
 	while (*line != '\0')
@@ -84,16 +84,21 @@ char	*expand_string(t_shell *sh, char *line)
 	return (new);
 }
 
-int expand(t_shell *sh, t_token *token)
+int	expand(t_shell *sh, t_token *token)
 {
 	if (token->quoted)
 		token->content = expand_string(sh, token->content);
 	else
 	{
-		token->content = get_env(sh->env, token->content);
-		if (token->content == NULL)
-			return (SUCCESS);
-		token->content = ft_strdup(token->content);
+		if (token->content[1] == '?')
+			token->content = ft_itoa(sh->exit_status);
+		else
+		{
+			token->content = get_env(sh->env, token->content + 1);
+			if (token->content == NULL)
+				return (SUCCESS);
+			token->content = ft_strdup(token->content);
+		}
 	}
 	if (token->content == NULL)
 		return (FAILURE);

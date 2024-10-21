@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:21:18 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/21 01:36:15 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/21 19:47:20 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_received_signals = 0;
 
-int main(int ac, char **av, char **envp)
+int	main(int ac, char **av, char **envp)
 {
 	t_shell			sh;
 	struct termios	term;
