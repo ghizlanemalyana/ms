@@ -1,6 +1,8 @@
 Builtins
 	pwd
 
+git
+
 Signals and exit status
 Heredoc // To be continued after signals
 
