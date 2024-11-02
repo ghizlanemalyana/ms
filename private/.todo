@@ -11,4 +11,6 @@ Cleanup:
 	Norminette
 	replace system functions with their own implementation
 	Makefile
+
+	in the main function "	tcgetattr(STDIN_FILENO, &term);//?"
 i love you baby <3

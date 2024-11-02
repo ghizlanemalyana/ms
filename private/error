@@ -1,0 +1,4 @@
+// error when i use the heredoc
+		// "pointer being freed was not allocated"
+		// "pointer being freed was not allocated" in this case "cat << dm"
+		// "im $USER <3" this case doesn't work.

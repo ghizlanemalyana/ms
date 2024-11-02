@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 16:19:08 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/21 19:43:06 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/02 21:41:24 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@ int	count_var_len(char *str)
 	int	i;
 
 	if (*(str + 1) == '?')
-		i = 1;
+		return (2);
 	else
 	{
 		i = 1;
-		while ((ft_isalpha(str[i]) || str[i] == '_')
-			&& (ft_isalnum(str[i + 1]) || str[i + 1] == '_'))
+		while (ft_isalnum(str[i]) || str[i] == '_')
 			i++;
 	}
-	return (i + 1);
+	return (i);
 }
 
 char	*expand_env(t_shell *sh, char *line, int len)
@@ -45,13 +44,15 @@ char	*expand_env(t_shell *sh, char *line, int len)
 
 	if (*line == '?')
 		return (ft_itoa(sh->exit_status));
-	key = ft_substr(line, 0, len - 1);
+	key = ft_substr(line, 0, len);
 	if (key == NULL)
 		return (NULL);
 	str = get_env(sh->env, key);
 	free(key);
 	if (str == NULL)
 		str = ft_strdup("");
+	else
+		str = ft_strdup(str);
 	return (str);
 }
 
@@ -67,7 +68,7 @@ char	*expand_string(t_shell *sh, char *line)
 		if (is_expandable(line))
 		{
 			len = count_var_len(line);
-			str = expand_env(sh, line + 1, len);
+			str = expand_env(sh, line + 1, len - 1);
 		}
 		else
 		{
@@ -86,6 +87,9 @@ char	*expand_string(t_shell *sh, char *line)
 
 int	expand(t_shell *sh, t_token *token)
 {
+	char	*ptr;
+
+	ptr = token->content;
 	if (token->quoted)
 		token->content = expand_string(sh, token->content);
 	else
@@ -100,6 +104,7 @@ int	expand(t_shell *sh, t_token *token)
 			token->content = ft_strdup(token->content);
 		}
 	}
+	free(ptr);
 	if (token->content == NULL)
 		return (FAILURE);
 	return (SUCCESS);

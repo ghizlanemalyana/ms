@@ -8,7 +8,7 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"program": "${workspaceFolder}/minish_db",
+			"program": "${workspaceFolder}/minishell_db",
 			"stopAtEntry": false,
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "The most perfert unprefect minishell in the world made by gmalyana and snjili and 98 others",

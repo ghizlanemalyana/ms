@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:37:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/21 19:42:13 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/02 17:28:20 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@
 # include <string.h>
 # include <stdio.h>
 # include <errno.h>
+# include <limits.h>
 # include <sys/stat.h>
 # include <termios.h>
 # include <fcntl.h>
+# include <sys/stat.h>
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
 # define PROMPT "\033[0;35m➜\033[0m "
-
+# define AMBG "minishell: ambiguous redirect\n"
 //! Debug
 # define TRUE "\033[0;32mtrue\033[0m"
 # define FALSE "\033[0;31mfalse\033[0m"
@@ -37,6 +39,9 @@ void	print_tokens(t_list *tokens);
 
 # define WRITE_FD 0
 # define READ_FD 1
+
+# define IN_FD 0
+# define OUT_FD 1
 
 extern int	g_received_signals;
 
@@ -79,6 +84,9 @@ typedef struct s_cmd
 	int			argc;
 	char		**argv;
 	char		**envp;
+	int			in;
+	int			out;
+	bool		is_builtin;
 	t_list		*redirs;
 }	t_cmd;
 
@@ -99,6 +107,7 @@ int			ft_pwd(t_shell *sh);
 void		ft_env(t_shell *sh);
 int			ft_exit(t_shell *sh, int ac, char **av);
 bool		is_key_valid(char *key);
+void		invalid_identifier(char *func, char *identifier);
 int			ft_export(t_shell *sh, char **av);
 int 		ft_unset(t_shell *shell, char **av);
 
@@ -107,9 +116,11 @@ void		free_token(void *content);
 int			parse(t_shell *sh);
 bool		is_expandable(char *line);
 int			expand(t_shell *sh, t_token *token);
+int			create_token(t_shell *sh, char *line, int *i);
 
 // Signals
 void		heredoc_handler(int sig);
+void		check_signal(t_shell *sh);
 void		set_signals_handlers(void);
 void		sigint_handler(int sig);
 
@@ -138,5 +149,12 @@ bool		isoperator(t_token *token);
 bool		isredir(t_token *token);
 void		free_array(char **array);
 void		my_exit(t_shell *sh);
+
+// Execution
+bool		is_dir(t_cmd *cmd);
+bool		is_builtin(char *cmd);
+int			join_path(t_shell *sh);
+int			open_redirs(t_cmd *cmd);
+void		exec(t_shell *sh);
 
 # endif

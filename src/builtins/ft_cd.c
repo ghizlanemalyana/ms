@@ -6,11 +6,11 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 00:18:20 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/21 00:46:23 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/02 23:29:38 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+#include "../../minishell.h"
 
 static char	*join_new_path(char *base, char *new)
 {
@@ -28,7 +28,6 @@ static char	*join_new_path(char *base, char *new)
 	ft_strlcat(path, new, base_len + new_len + 2);
 	return (path);
 }
-
 
 static int	update_oldpwd(t_shell *sh)
 {
@@ -51,7 +50,7 @@ static int	update_pwd(t_shell *sh, char *arg)
 	if (pwd == NULL)
 	{
 		perror("cd: error retrieving current directory: getcwd: cannot access parent directories");
-		pwd = join_new_path(get_env(sh->env, "PWD"), arg);
+		pwd = join_new_path(get_env(sh->hidden_env, "PWD"), arg);
 		if (pwd == NULL)
 			return (FAILURE);
 	}

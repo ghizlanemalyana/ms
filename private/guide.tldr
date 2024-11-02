@@ -21,7 +21,7 @@
 			"com.tldraw.shape.bookmark": 2,
 			"com.tldraw.shape.draw": 2,
 			"com.tldraw.shape.geo": 9,
-			"com.tldraw.shape.note": 7,
+			"com.tldraw.shape.note": 8,
 			"com.tldraw.shape.line": 5,
 			"com.tldraw.shape.frame": 0,
 			"com.tldraw.shape.arrow": 5,
@@ -13819,41 +13819,6 @@
 			"typeName": "shape"
 		},
 		{
-			"x": 4760.970794417394,
-			"y": 2461.3638031839682,
-			"rotation": 0,
-			"isLocked": false,
-			"opacity": 1,
-			"meta": {},
-			"id": "shape:LN5Q27gzwT_gFw3BN044_",
-			"type": "draw",
-			"props": {
-				"segments": [
-					{
-						"type": "free",
-						"points": [
-							{
-								"x": 0,
-								"y": 0,
-								"z": 0.5
-							}
-						]
-					}
-				],
-				"color": "violet",
-				"fill": "none",
-				"dash": "draw",
-				"size": "m",
-				"isComplete": true,
-				"isClosed": false,
-				"isPen": false,
-				"scale": 1
-			},
-			"parentId": "page:page",
-			"index": "b2a4Rx",
-			"typeName": "shape"
-		},
-		{
 			"x": 4420.070207232492,
 			"y": 2117.8547435505893,
 			"rotation": 0,
@@ -16476,9 +16441,9 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 5609.93482403508,
-			"y": 2235.6681430725353,
-			"lastActivityTimestamp": 1729448338809,
+			"x": 5027.874424209731,
+			"y": 2845.1232332866,
+			"lastActivityTimestamp": 1730059342885,
 			"meta": {}
 		},
 		{
@@ -16488,7 +16453,7 @@
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "default",
+				"type": "cross",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -16498,8 +16463,8 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 1723.2000732421875,
-				"h": 1290
+				"w": 991.2000122070312,
+				"h": 1058.4000244140625
 			},
 			"insets": [
 				false,
@@ -16527,11 +16492,9 @@
 			"typeName": "instance"
 		},
 		{
-			"editingShapeId": "shape:oMjaC4H695IPJszgBoD8i",
+			"editingShapeId": null,
 			"croppingShapeId": null,
-			"selectedShapeIds": [
-				"shape:oMjaC4H695IPJszgBoD8i"
-			],
+			"selectedShapeIds": [],
 			"hoveredShapeId": null,
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
@@ -16542,9 +16505,9 @@
 			"typeName": "instance_page_state"
 		},
 		{
-			"x": -4465.167500350246,
-			"y": -1397.3531647172922,
-			"z": 0.8361415819890049,
+			"x": -4607.386905899184,
+			"y": -1133.098208872538,
+			"z": 0.5,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"

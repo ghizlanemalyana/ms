@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 17:08:30 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/21 01:03:18 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/02 01:33:13 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_print_env(t_list *env)
 {
 	t_env	*tmp;
 
-	while (tmp)
+	while (env)
 	{
 		tmp = (t_env *)env->content;
 		if (tmp->value != NULL)
@@ -65,7 +65,7 @@ int	ft_export(t_shell *shell, char **av)
 	{
 		ptr = ft_strchr(*av, '=');
 		if (ptr == NULL)
-			status = export(shell, ptr, NULL, false);
+			status = export(shell, *av, NULL, false);
 		else if (ptr - ft_strchr(*av, '+') == 1)
 			status = export(shell, *av, ptr + 1, true);
 		else

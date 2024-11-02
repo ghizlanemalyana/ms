@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 22:15:56 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/20 23:19:02 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:44:43 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_pwd(t_shell *sh)
 {
 	char	*pwd;
 
+	(void)sh; //!
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{

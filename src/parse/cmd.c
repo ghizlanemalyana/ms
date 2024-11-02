@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 19:05:12 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/21 19:43:26 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/02 21:41:08 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static int	set_redir(t_shell *sh, t_cmd *cmd, t_list *node)
 		return (FAILURE);
 	redir->type = ((t_token *)node->content)->type;
 	if (redir->type == HEREDOC)
-		set_heredoc(sh, redir, node->next->content);//! Protection
+	{
+		if (set_heredoc(sh, redir, node->next->content) == FAILURE)
+			return (free(redir), FAILURE);
+	}
 	else if (((t_token *)node->next->content)->content != NULL)
 	{
 		redir->filename = ft_strdup(((t_token *)node->next->content)->content);
@@ -31,7 +34,7 @@ static int	set_redir(t_shell *sh, t_cmd *cmd, t_list *node)
 	}
 	new = ft_lstnew(redir);
 	if (new == NULL)
-		return (free(redir), FAILURE);
+		return (free(redir->filename), free(redir), FAILURE);
 	ft_lstadd_back(&cmd->redirs, new);
 	return (SUCCESS);
 }
@@ -76,7 +79,7 @@ static int	count_argc(t_list *tokens)
 		token = tokens->content;
 		if (isredir(token))
 			tokens = tokens->next;
-		else if (token->type == ARG && token->content != NULL) //!
+		else if (token->type == ARG && token->content != NULL)
 			counter++;
 		else
 			break ;
@@ -113,7 +116,7 @@ char	**list_to_array(t_list *list)
 	return (array);
 }
 
-int init_cmd(t_shell *sh)
+int	init_cmd(t_shell *sh)
 {
 	t_cmd	*cmd;
 	t_list	*node;
@@ -126,12 +129,13 @@ int init_cmd(t_shell *sh)
 		if (cmd == NULL)
 			return (FAILURE);
 		cmd->argc = count_argc(tokens);
-		cmd->argv = ft_calloc(sizeof(char *) , (cmd->argc + 1));
+		cmd->argv = ft_calloc(sizeof(char *), (cmd->argc + 1));
 		cmd->envp = list_to_array(sh->env);
 		node = ft_lstnew(cmd);
 		if (cmd->argv == NULL || cmd->envp == NULL || node == NULL
 			|| set_cmd(sh, tokens, cmd) == FAILURE)
 			return (free_cmd(cmd), FAILURE);
+		cmd->is_builtin = is_builtin(cmd->argv[0]);
 		ft_lstadd_back(&sh->cmds, node);
 		while (tokens != NULL && ((t_token *)tokens->content)->type != PIPE)
 			tokens = tokens->next;

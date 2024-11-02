@@ -7,12 +7,14 @@
             "args": [
                 "-g",
                 "-lreadline",
-                "*.c",
-                // "src/*.c",
-                // "src/*/*.c",
-                // "libft/*.c",
+                // "*.c",
+                // "-L /Users/gmalyana/.brew/opt/readline/lib",
+                // "-I /Users/gmalyana/.brew/opt/readline/include",
+                "src/*.c",
+                "src/*/*.c",
+                "libft/*.c",
                 "-o",
-                "minish_db"
+                "minishell_db"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"

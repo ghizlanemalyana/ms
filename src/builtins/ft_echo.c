@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 17:06:07 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/21 00:58:38 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/10/30 16:41:44 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_echo(char **argv)
 {
-	int		i;
 	bool	n_flag;
 
 	n_flag = true;

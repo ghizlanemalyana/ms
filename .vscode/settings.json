@@ -35,6 +35,7 @@
 		"stdint.h": "c",
 		"fcntl.h": "c",
 		"*.todo": "c",
-		"termios.h": "c"
+		"termios.h": "c",
+		"stat.h": "c"
 	}
 }

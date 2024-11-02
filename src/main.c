@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:21:18 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/21 19:47:20 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/02 23:29:37 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ int	main(int ac, char **av, char **envp)
 	tcgetattr(STDIN_FILENO, &term);
 	while (1)
 	{
-		sh.exit_status = parse(&sh);
-		if (sh.exit_status != SUCCESS)
+		if (parse(&sh) != SUCCESS || sh.cmds == NULL)
 			continue ;
-		// exec(&sh);
+		exec(&sh);
 		ft_lstclear(&sh.cmds, free_cmd);
 		tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	}

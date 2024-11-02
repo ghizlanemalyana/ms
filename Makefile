@@ -1,4 +1,4 @@
-CFLAGS =  -Wall -Wextra -Werror
+CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror
 SOURCES = $(shell find src/ -type f -name "*.c")
 OBJS = $(SOURCES:.c=.o)
 LIB_DIR = libft/
@@ -8,10 +8,10 @@ NAME = minishell
 all: $(NAME) clean #! Remove clean dependency later
 
 $(NAME): $(OBJS) $(LIBFT)
-	cc $(OBJS) $(LIBFT) -lreadline -L /Users/gmalyana/.brew/opt/readline/lib -o $(NAME)
+	cc $(CFLAGS) $(OBJS) $(LIBFT) -lreadline -L /Users/gmalyana/.brew/opt/readline/lib -o $(NAME)
 
 %.o : %.c minishell.h
-	cc -I /Users/gmalyana/.brew/opt/readline/include -c $< -o $@ 
+	cc $(CFLAGS) -I /Users/gmalyana/.brew/opt/readline/include -c $< -o $@ 
 
 $(LIBFT) :
 	make -C $(LIB_DIR)
