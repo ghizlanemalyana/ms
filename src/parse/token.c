@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ialdidi <ialdidi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/02 01:58:46 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 21:14:27 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 00:13:35 by ialdidi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ int	create_token(t_shell *sh, char *line, int *i)
 	if (token->type == ARG)
 	{
 		token->quoted = (line[*i] == '"' || line[*i] == '\'');
-		if (ft_strchr("|><\t ", *(&line[*i] + token->len + (2 * (token->quoted)))) == NULL)
+		if (ft_strchr("|><\t ",
+				*(&line[*i] + token->len + (2 * (token->quoted)))) == NULL)
 			token->linked = true;
 		token->content = ft_substr(line, *i + token->quoted, token->len);
 		if (token->content == NULL)

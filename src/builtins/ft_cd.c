@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 00:18:20 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 23:30:45 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/02 23:49:54 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	update_pwd(t_shell *sh, char *arg)
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
 	{
-		perror("cd: error retrieving current directory: getcwd: cannot access parent directories");
+		perror(CDERR);
 		pwd = join_new_path(get_env(sh->hidden_env, "PWD"), arg);
 		if (pwd == NULL)
 			return (FAILURE);
@@ -73,6 +73,7 @@ int	ft_cd(t_shell *sh, char **av)
 		path = av[0];
 	if (path == NULL)
 		return (printf("cd: HOME not set\n"), FAILURE);
+	//free(getcwd(NULL, 0));
 	if (chdir(path) == -1)
 	{
 		return (perror("cd"), FAILURE);

@@ -6,13 +6,13 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:06:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 02:11:51 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 01:40:23 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	check_syntax(t_shell *sh)
+static int	check_syntax(t_shell *sh)
 {
 	t_list	*tokens;
 	t_token	*current;
@@ -38,7 +38,7 @@ int	check_syntax(t_shell *sh)
 	return (SUCCESS);
 }
 
-void	update_exit_status(t_shell *sh)
+static void	update_exit_status(t_shell *sh)
 {
 	if (g_received_signals != sh->received_signals)
 	{
@@ -47,7 +47,7 @@ void	update_exit_status(t_shell *sh)
 	}
 }
 
-int	init_tokens(t_shell *sh, char *line)
+static int	init_tokens(t_shell *sh, char *line)
 {
 	int		i;
 	int		status;

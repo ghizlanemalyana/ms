@@ -6,45 +6,11 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 16:06:35 by ialdidi           #+#    #+#             */
-/*   Updated: 2024/11/02 23:30:46 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 01:46:12 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-
-
-void	dup_stdout(int *fd, t_cmd *cmd)
-{
-	if (cmd->out > 2)
-	{
-		*fd = dup(1);
-		dup2(cmd->out, 1);
-		close(cmd->out);
-	}
-}
-
-void	reset_stdout(int *fd, t_cmd *cmd)
-{
-	if (cmd->out > 2)
-	{
-		dup2(*fd, 1);
-		close(*fd);
-	}
-}
-
-bool has_redir_in(t_list *list)
-{
-	t_redir	*redir;
-
-	while (list)
-	{
-		redir = list->content;
-		if (redir->type == REDIR_IN || redir->type == HEREDOC)
-			return (true);
-		list = list->next;
-	}
-	return (false);
-}
 
 int	run_builtin(t_shell *sh, t_cmd *cmd)
 {
@@ -104,25 +70,33 @@ void	exec_builtin(t_shell *sh)
 	if (status == SUCCESS)
 	{
 		dup_stdout(&fd_out, cmd);
+		if (cmd->out != 2)
+		{
+			fd_out = dup(1);
+			dup2(cmd->out, 1);
+		}
 		status = run_builtin(sh, sh->cmds->content);
+		if (cmd->out != 2)
+		{
+			dup2(fd_out, 1);
+			close(fd_out);
+		}
 		reset_stdout(&fd_out, cmd);
 	}
 	sh->exit_status = status;
 }
 
-int ft_child(t_shell *sh, t_list *node, int *pipe_fds)
+int ft_fork(t_shell *sh, t_list *node, int *pipe_fds)
 {
 	int		pid;
 	t_cmd	*cmd;
 
-	if (open_redirs(node->content) == FAILURE)
-		return (0); // !
 	cmd = node->content;
 	pid = fork();
-	if (pid == -1)
-		return (-1);
 	if (pid == 0)
 	{
+		if (open_redirs(node->content) == FAILURE)
+			exit(1);
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
 		if (node->next)
@@ -138,6 +112,16 @@ int ft_child(t_shell *sh, t_list *node, int *pipe_fds)
 			exit(run_builtin(sh, node->content));
 		run_bin(cmd);
 	}
+	return (pid);
+}
+
+int	open_child(t_shell *sh, t_list *node, int *pipe_fds)
+{
+	int	pid;
+
+	pid = ft_fork(sh, node, pipe_fds);
+	if (pid == -1)
+		return (-1);
 	if (node->next)
 	{
 		close(pipe_fds[1]);
@@ -182,11 +166,8 @@ void	exec(t_shell *sh)
 	if (join_path(sh) == FAILURE)
 		return ;
 	cmd = sh->cmds->content;
-	// if (ft_lstsize(1))
-	// hold_fd(&stdin_fd);
 	if (cmd->is_builtin && ft_lstsize(sh->cmds) == 1)
 		exec_builtin(sh);
 	else
 		exec_bin(sh);
-	// reset_fd(&stdin_fd, 0);
 }

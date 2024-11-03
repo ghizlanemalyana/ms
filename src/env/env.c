@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:00:05 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 22:28:15 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 00:22:54 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	append_env(t_list **list, char *key, char *value)
 	if (new_value == NULL)
 		return (FAILURE);
 	unset_env(list, key);
-	return (create_env(list, key, new_value));	
+	return (create_env(list, key, new_value));
 }
 
 char	*get_env(t_list *list, char *key)

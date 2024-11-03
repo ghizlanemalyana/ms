@@ -6,11 +6,11 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/01 17:08:30 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 01:33:13 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 01:35:50 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../../minishell.h"
+#include "../../minishell.h"
 
 void	ft_print_env(t_list *env)
 {
@@ -27,7 +27,7 @@ void	ft_print_env(t_list *env)
 	}
 }
 
-int 	export(t_shell *sh, char *key, char *value, bool append)
+int	export(t_shell *sh, char *key, char *value, bool append)
 {
 	int		status;
 	char	*new_key;
@@ -41,7 +41,7 @@ int 	export(t_shell *sh, char *key, char *value, bool append)
 	if (is_key_valid(new_key) == false)
 	{
 		free(new_key);
-		printf("minishell: export: `%s': not a valid identifier\n", key);
+		invalid_identifier("export", key);
 		return (ERROR);
 	}
 	if (append)

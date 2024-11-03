@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:37:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 17:28:20 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/02 23:49:40 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 
 # define PROMPT "\033[0;35m➜\033[0m "
 # define AMBG "minishell: ambiguous redirect\n"
+# define CDERR "cd: error retrieving current directory:\
+getcwd: cannot access parent directories\n"
+
 //! Debug
 # define TRUE "\033[0;32mtrue\033[0m"
 # define FALSE "\033[0;31mfalse\033[0m"
