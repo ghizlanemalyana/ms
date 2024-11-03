@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ialdidi <ialdidi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/02 01:58:46 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 00:13:35 by ialdidi          ###   ########.fr       */
+/*   Created: 2024/11/03 18:10:52 by gmalyana          #+#    #+#             */
+/*   Updated: 2024/11/03 19:56:14 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static t_type	get_type(char *word)
 		return (NONE);
 }
 
-//! TODO to be updated later
 static int	get_len(char *word, t_type type)
 {
 	int	len;
@@ -70,15 +69,16 @@ static int	add_token(t_shell *sh, t_token *new)
 		return (FAILURE);
 	if (sh->tokens != NULL)
 	{
-		last = ft_lstlast(sh->tokens)->content; //! protection
+		last = ft_lstlast(sh->tokens)->content;
 		if (last->linked == true)
 		{
-			last->content = ft_strjoin_free(last->content, new->content, 1);
-			if (last->content == NULL)
-				return (FAILURE);
-			last->linked = new->linked;
-			free_token(new);
-			return (SUCCESS);
+			if (new->content != NULL)
+			{
+				last->content = ft_strjoin_free(last->content, new->content, 1);
+				if (last->content == NULL)
+					return (FAILURE);
+			}
+			return (last->linked = new->linked, free_token(new), SUCCESS);
 		}
 	}
 	node = ft_lstnew(new);

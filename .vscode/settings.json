@@ -36,6 +36,7 @@
 		"fcntl.h": "c",
 		"*.todo": "c",
 		"termios.h": "c",
-		"stat.h": "c"
+		"stat.h": "c",
+		"string": "c"
 	}
 }

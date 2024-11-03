@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 22:24:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/30 15:53:07 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 23:45:08 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,13 @@ bool	isoperator(t_token *token)
 	return (isredir(token) || token->type == PIPE);
 }
 
-void	my_exit(t_shell *sh)
+void	my_exit(t_shell *sh, int status)
 {
 	ft_lstclear(&sh->cmds, free_cmd);
 	ft_lstclear(&sh->env, free_env);
 	ft_lstclear(&sh->hidden_env, free_env);
-	// rl_clear_history();
-	printf("\033[F\033[2Cexit\n");
-	exit(EXIT_SUCCESS);
+	rl_clear_history();
+	exit(status);
 }
 
 void	free_array(char **array)

@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 00:18:20 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 23:49:54 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 23:45:39 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	ft_cd(t_shell *sh, char **av)
 		path = av[0];
 	if (path == NULL)
 		return (printf("cd: HOME not set\n"), FAILURE);
-	//free(getcwd(NULL, 0));
+	free(getcwd(NULL, 0));
 	if (chdir(path) == -1)
 	{
 		return (perror("cd"), FAILURE);

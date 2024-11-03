@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/03 18:15:18 by gmalyana          #+#    #+#             */
+/*   Updated: 2024/11/03 18:53:40 by gmalyana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../minishell.h"
 
 void	check_signal(t_shell *sh)
@@ -24,11 +36,11 @@ void	check_signal(t_shell *sh)
 
 bool	is_dir(t_cmd *cmd)
 {
-	struct stat		path_stat;
+	struct stat		st;
 
-	if (ft_strchr(cmd->argv[0], '/') && stat(cmd->argv[0], &path_stat) == SUCCESS) // ft_strchr(cmd->argv[0], '/')
+	if (ft_strchr(cmd->argv[0], '/') && stat(cmd->argv[0], &st) == SUCCESS)
 	{
-		if (S_ISDIR(path_stat.st_mode))
+		if (S_ISDIR(st.st_mode))
 		{
 			ft_putstr_fd("minishell: ", 2);
 			ft_putstr_fd(cmd->argv[0], 2);
@@ -37,34 +49,4 @@ bool	is_dir(t_cmd *cmd)
 		}
 	}
 	return (false);
-}
-
-// void	dup_stdout(int *fd, t_cmd *cmd)
-// {
-// 	if (cmd->out > 2)
-// 	{
-// 		*fd = dup(1);
-// 		dup2(cmd->out, 1);
-// 		close(cmd->out);
-// 	}
-// }
-
-// void	reset_stdout(int *fd, t_cmd *cmd)
-// {
-// 	if (cmd->out > 2)
-// 	{
-// 		dup2(*fd, 1);
-// 		close(*fd);
-// 	}
-// }
-
-void	hold_fd(int *holder, int to_hold)
-{
-	*holder = dup(to_hold);
-}
-
-void	reset_fd(int *holder, int stdfd)
-{
-	dup2(*holder, stdfd);
-	close(*holder);
 }

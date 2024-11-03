@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 00:19:35 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 23:30:45 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:24:34 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	ft_strspn(const char *s, const char *accept)
 	while (s[i] != '\0')
 	{
 		if (ft_strchr(accept, s[i]) == NULL)
-			break;
+			break ;
 		i++;
 	}
 	return (i);

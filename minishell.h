@@ -6,11 +6,11 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:37:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 23:49:40 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:58:14 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef MINISHELL_H
+#ifndef MINISHELL_H
 # define MINISHELL_H
 
 # include "libft/libft.h"
@@ -30,11 +30,6 @@
 # define AMBG "minishell: ambiguous redirect\n"
 # define CDERR "cd: error retrieving current directory:\
 getcwd: cannot access parent directories\n"
-
-//! Debug
-# define TRUE "\033[0;32mtrue\033[0m"
-# define FALSE "\033[0;31mfalse\033[0m"
-void	print_tokens(t_list *tokens);
 
 # define ERROR 258
 # define SUCCESS 0
@@ -112,7 +107,7 @@ int			ft_exit(t_shell *sh, int ac, char **av);
 bool		is_key_valid(char *key);
 void		invalid_identifier(char *func, char *identifier);
 int			ft_export(t_shell *sh, char **av);
-int 		ft_unset(t_shell *shell, char **av);
+int			ft_unset(t_shell *shell, char **av);
 
 // Parsing
 void		free_token(void *content);
@@ -151,13 +146,15 @@ char		*ft_strjoin_free(char *s1, char *s2, int to_free);
 bool		isoperator(t_token *token);
 bool		isredir(t_token *token);
 void		free_array(char **array);
-void		my_exit(t_shell *sh);
+void		my_exit(t_shell *sh, int status);
 
 // Execution
 bool		is_dir(t_cmd *cmd);
 bool		is_builtin(char *cmd);
 int			join_path(t_shell *sh);
 int			open_redirs(t_cmd *cmd);
+int			run_builtin(t_shell *sh, t_cmd *cmd);
+void		run_bin(t_cmd *cmd);
 void		exec(t_shell *sh);
 
-# endif
+#endif

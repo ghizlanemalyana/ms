@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 21:25:55 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 23:30:45 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 18:23:05 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,6 @@ int	is_valide_number(char *str)
 	return (true);
 }
 
-static void	clean_exit(t_shell *sh, int status)
-{
-	ft_lstclear(&sh->cmds, free_cmd);
-	ft_lstclear(&sh->env, free_env);
-	exit(status);
-}
-
 int	ft_exit(t_shell *sh, int ac, char **argv)
 {
 	int	status;
@@ -65,6 +58,6 @@ int	ft_exit(t_shell *sh, int ac, char **argv)
 			return (FAILURE);
 		}
 	}
-	clean_exit(sh, status);
+	my_exit(sh, status);
 	return (SUCCESS);
 }

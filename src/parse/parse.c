@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:06:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 01:40:23 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 23:45:26 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,15 @@ int	parse(t_shell *sh)
 
 	line = readline(PROMPT);
 	if (line == NULL)
-		my_exit(sh);
+	{
+		printf("\033[F\033[2Cexit\n");
+		my_exit(sh, 0);
+	}
 	if (ft_strlen(line) > 0)
 		add_history(line);
 	update_exit_status(sh);
 	status = init_tokens(sh, line);
-	if (status == SUCCESS)
+	if (status == EXIT_SUCCESS)
 	{
 		status = check_syntax(sh);
 		if (status == SUCCESS)

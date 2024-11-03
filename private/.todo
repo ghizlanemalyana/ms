@@ -1,8 +1,6 @@
 Builtins
 	pwd
-
 git
-
 Signals and exit status
 Heredoc // To be continued after signals
 
@@ -12,5 +10,5 @@ Cleanup:
 	replace system functions with their own implementation
 	Makefile
 	Checkout Header in files
-	in the main function "	tcgetattr(STDIN_FILENO, &term);//?"
-i love you baby <3
+
+Why we used global variable

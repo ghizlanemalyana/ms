@@ -6,13 +6,13 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/20 21:47:46 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/03 22:06:28 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	init_hidden_env(t_shell *sh)
+int	init_hidden_env(t_shell *sh)//?
 {
 	char	*value;
 
