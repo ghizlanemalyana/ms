@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 18:29:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 18:29:48 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/06 18:35:07 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	run_builtin(t_shell *sh, t_cmd *cmd)
 	else if (ft_strcmp(cmd->argv[0], "cd") == 0)
 		status = ft_cd(sh, cmd->argv + 1);
 	else if (ft_strcmp(cmd->argv[0], "pwd") == 0)
-		ft_pwd(sh);
+		ft_pwd();
 	else if (ft_strcmp(cmd->argv[0], "echo") == 0)
 		ft_echo(cmd->argv + 1);
 	else if (ft_strcmp(cmd->argv[0], "export") == 0)

@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 22:24:39 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 23:28:53 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/07 17:18:44 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	sigint_handler(int sig)
 
 void	set_signals_handlers(void)
 {
-	rl_catch_signals = 0;
+	rl_catch_signals = false;
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

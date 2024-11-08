@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/18 00:18:20 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 23:45:39 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:29:04 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	update_oldpwd(t_shell *sh)
 	oldpwd = get_env(sh->hidden_env, "PWD");
 	if (set_env(&sh->hidden_env, "OLDPWD", oldpwd) == FAILURE)
 		return (FAILURE);
-	if (get_env(sh->env, "OLDPWD") != NULL
+	if (is_env_exist(sh->env, "OLDPWD")
 		&& set_env(&sh->env, "OLDPWD", oldpwd) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);

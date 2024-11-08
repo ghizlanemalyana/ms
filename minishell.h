@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:37:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 18:58:14 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/07 21:08:03 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_shell
 // Builtins
 void		ft_echo(char **av);
 int			ft_cd(t_shell *sh, char **av);
-int			ft_pwd(t_shell *sh);
+void		ft_pwd(void);
 void		ft_env(t_shell *sh);
 int			ft_exit(t_shell *sh, int ac, char **av);
 bool		is_key_valid(char *key);
@@ -111,7 +111,7 @@ int			ft_unset(t_shell *shell, char **av);
 
 // Parsing
 void		free_token(void *content);
-int			parse(t_shell *sh);
+void		parse(t_shell *sh);
 bool		is_expandable(char *line);
 int			expand(t_shell *sh, t_token *token);
 int			create_token(t_shell *sh, char *line, int *i);
@@ -133,6 +133,7 @@ int			create_env(t_list **list, char *key, char *value);
 void		unset_env(t_list **list, char *key);
 int			append_env(t_list **list, char *key, char *value);
 char		*get_env(t_list *list, char *key);
+bool		is_env_exist(t_list *list, char *key);
 int			init_hidden_env(t_shell *sh);
 
 // Expansion

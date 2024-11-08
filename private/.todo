@@ -1,14 +1,2 @@
-Builtins
-	pwd
-git
-Signals and exit status
-Heredoc // To be continued after signals
-
-Cleanup:
-	Print error
-	Norminette
-	replace system functions with their own implementation
-	Makefile
-	Checkout Header in files
-
-Why we used global variable
+var="ls -l"
+ambigious redirect

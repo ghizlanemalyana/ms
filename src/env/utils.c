@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:46:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 22:06:28 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/07 20:28:39 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,20 @@ int	init_hidden_env(t_shell *sh)//?
 	}
 	free(value);
 	return (SUCCESS);
+}
+
+bool	is_env_exist(t_list *list, char *key)
+{
+	t_env	*var;
+
+	while (list != NULL)
+	{
+		var = list->content;
+		if (ft_strcmp(var->key, key) == 0)
+			return (true);
+		list = list->next;
+	}
+	return (false);
 }
 
 void	free_env(void *content)

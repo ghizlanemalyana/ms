@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 21:48:56 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 23:36:54 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/07 16:39:50 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	put_line(t_shell *sh, int fd, char *line, bool quoted)
 {
 	char	*new_line;
 
-	if (quoted == true)
+	if (quoted == true || ft_strlen(line) == 0)
 		ft_putendl_fd(line, fd);
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 18:10:52 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 19:56:14 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:22:15 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ static int	add_token(t_shell *sh, t_token *new)
 				if (last->content == NULL)
 					return (FAILURE);
 			}
-			return (last->linked = new->linked, free_token(new), SUCCESS);
+			last->linked = new->linked;
+			return (free_token(new), SUCCESS);
 		}
 	}
 	node = ft_lstnew(new);
@@ -132,3 +133,11 @@ int	create_token(t_shell *sh, char *line, int *i)
 		return (free_token(token), FAILURE);
 	return (SUCCESS);
 }
+
+// echo "$USER""$PWD"
+// echo "$USER"$SDG"$PWD"
+
+// last->content : gmalyanain
+// last->linked : true
+
+// new: in

@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:06:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 23:45:26 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/08 19:47:45 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	check_syntax(t_shell *sh)
 {
 	t_list	*tokens;
-	t_token	*current;
+	t_token	*current; 
 	t_token	*next;
 
 	tokens = sh->tokens;
@@ -53,6 +53,7 @@ static int	init_tokens(t_shell *sh, char *line)
 	int		status;
 
 	i = 0;
+	status = SUCCESS;
 	while (line[i] && (line[i] == ' ' || line[i] == '\t'))
 		i++;
 	while (line[i])
@@ -66,7 +67,7 @@ static int	init_tokens(t_shell *sh, char *line)
 	return (status);
 }
 
-int	parse(t_shell *sh)
+void	parse(t_shell *sh)
 {
 	char	*line;
 	int		status;
@@ -78,19 +79,19 @@ int	parse(t_shell *sh)
 		my_exit(sh, 0);
 	}
 	if (ft_strlen(line) > 0)
-		add_history(line);
-	update_exit_status(sh);
-	status = init_tokens(sh, line);
-	if (status == EXIT_SUCCESS)
 	{
-		status = check_syntax(sh);
+		add_history(line);
+		update_exit_status(sh);
+		status = init_tokens(sh, line);
 		if (status == SUCCESS)
-			status = init_cmd(sh);
+		{
+			status = check_syntax(sh);
+			if (status == SUCCESS)
+				status = init_cmd(sh);
+		}
+		if (status == ERROR)
+			ft_putstr_fd("minishell: syntax error\n", 2);
+		sh->exit_status = status;
 	}
-	if (status == ERROR)
-		ft_putstr_fd("minishell: syntax error\n", 2);
 	free(line);
-	ft_lstclear(&sh->tokens, free_token);
-	sh->exit_status = status;
-	return (status);
 }

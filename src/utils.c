@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 22:24:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 23:45:08 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/05 21:28:31 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ char	*ft_strjoin_free(char *s1, char *s2, int to_free)
 
 bool	isredir(t_token *token)
 {
-	return (token->type == REDIR_OUT || token->type == REDIR_IN
-		|| token->type == APPEND || token->type == HEREDOC);
+	return (token->type == REDIR_OUT
+		|| token->type == REDIR_IN
+		|| token->type == APPEND
+		|| token->type == HEREDOC);
 }
 
 bool	isoperator(t_token *token)
