@@ -37,6 +37,8 @@
 		"*.todo": "c",
 		"termios.h": "c",
 		"stat.h": "c",
-		"string": "c"
+		"string": "c",
+		"limits.h": "c",
+		"cdefs.h": "c"
 	}
 }

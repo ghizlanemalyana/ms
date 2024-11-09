@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 17:21:18 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/07 21:06:56 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/09 19:09:45 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int ac, char **av, char **envp)
 	struct termios	term;
 
 	(void)av;
-	if (ac != 1 || !isatty(0))
+	if (ac != 1/* || !isatty(0)*/)
 		return (ft_putstr_fd("Usage: ./minishell\n", 2), FAILURE);
 	ft_memset(&sh, 0, sizeof(t_shell));
 	if (ft_export(&sh, envp) == FAILURE

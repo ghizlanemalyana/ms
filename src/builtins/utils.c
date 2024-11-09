@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 18:42:38 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/07 17:39:16 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/09 19:05:31 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	invalid_identifier(char *func, char *identifier)
 
 bool	is_key_valid(char *key)
 {
-	if (ft_isalpha(*key) == false && *key != '_')//?
+	if (ft_isalpha(*key) == false && *key != '_')
 		return (false);
 	while (*key)
 	{

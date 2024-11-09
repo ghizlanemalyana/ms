@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 19:05:12 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 21:41:08 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/09 19:36:26 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	set_cmd(t_shell *sh, t_list *tokens, t_cmd *cmd)
 				return (FAILURE);
 			i++;
 		}
-		else
+		else if (token->type == PIPE)
 			break ;
 		tokens = tokens->next;
 	}
@@ -81,7 +81,7 @@ static int	count_argc(t_list *tokens)
 			tokens = tokens->next;
 		else if (token->type == ARG && token->content != NULL)
 			counter++;
-		else
+		else if (token->type == PIPE)
 			break ;
 		tokens = tokens->next;
 	}

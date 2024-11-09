@@ -7005,8 +7005,8 @@
 			"props": {
 				"color": "black",
 				"size": "l",
-				"w": 260.20001220703125,
-				"text": "ls -l > file",
+				"w": 109.00000762939453,
+				"text": "ls -l",
 				"font": "mono",
 				"textAlign": "start",
 				"autoSize": true,
@@ -16441,19 +16441,21 @@
 		{
 			"id": "pointer:pointer",
 			"typeName": "pointer",
-			"x": 5027.874424209731,
-			"y": 2845.1232332866,
-			"lastActivityTimestamp": 1730059342885,
+			"x": 4205.687531678544,
+			"y": -22.323315392146498,
+			"lastActivityTimestamp": 1731098038732,
 			"meta": {}
 		},
 		{
 			"followingUserId": null,
 			"opacityForNextShape": 1,
-			"stylesForNextShape": {},
+			"stylesForNextShape": {
+				"tldraw:color": "light-blue"
+			},
 			"brush": null,
 			"scribbles": [],
 			"cursor": {
-				"type": "cross",
+				"type": "default",
 				"rotation": 0
 			},
 			"isFocusMode": false,
@@ -16463,8 +16465,8 @@
 			"screenBounds": {
 				"x": 0,
 				"y": 0,
-				"w": 991.2000122070312,
-				"h": 1058.4000244140625
+				"w": 2602.800048828125,
+				"h": 1008.0000610351562
 			},
 			"insets": [
 				false,
@@ -16494,8 +16496,10 @@
 		{
 			"editingShapeId": null,
 			"croppingShapeId": null,
-			"selectedShapeIds": [],
-			"hoveredShapeId": null,
+			"selectedShapeIds": [
+				"shape:0sfAwWW_zxyJHtY6o04iY"
+			],
+			"hoveredShapeId": "shape:0sfAwWW_zxyJHtY6o04iY",
 			"erasingShapeIds": [],
 			"hintingShapeIds": [],
 			"focusedGroupId": null,
@@ -16505,12 +16509,35 @@
 			"typeName": "instance_page_state"
 		},
 		{
-			"x": -4607.386905899184,
-			"y": -1133.098208872538,
-			"z": 0.5,
+			"x": -3193.8658784089916,
+			"y": 120.63611045501364,
+			"z": 1.1856926255527016,
 			"meta": {},
 			"id": "camera:page:page",
 			"typeName": "camera"
+		},
+		{
+			"x": 4142.718666537976,
+			"y": -57.84168727322219,
+			"rotation": 0,
+			"isLocked": false,
+			"opacity": 1,
+			"meta": {},
+			"id": "shape:0sfAwWW_zxyJHtY6o04iY",
+			"type": "text",
+			"props": {
+				"color": "light-blue",
+				"size": "l",
+				"w": 130.60000610351562,
+				"text": "> file",
+				"font": "mono",
+				"textAlign": "start",
+				"autoSize": true,
+				"scale": 1
+			},
+			"parentId": "page:page",
+			"index": "b1kgDE",
+			"typeName": "shape"
 		}
 	]
 }

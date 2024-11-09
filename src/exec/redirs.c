@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 18:12:50 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 18:12:51 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/09 19:21:27 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ static int	open_fds(t_cmd *cmd, t_redir *redir)
 		cmd->out = open(redir->filename, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	}
 	if (cmd->in == -1 || cmd->out == -1)
-		return (perror("minishell: "), close_fds(cmd), FAILURE);
+		return (ft_putstr_fd("minishell: ", 2), perror(redir->filename),
+			close_fds(cmd), FAILURE);
 	return (SUCCESS);
 }
 

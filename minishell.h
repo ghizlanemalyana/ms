@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:37:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/07 21:08:03 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/09 19:06:19 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ getcwd: cannot access parent directories\n"
 # define IN_FD 0
 # define OUT_FD 1
 
-extern int	g_received_signals;
+int	g_received_signals;
 
 typedef enum e_type
 {
