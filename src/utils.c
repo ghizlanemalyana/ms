@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 22:24:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/09 19:23:13 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/09 19:55:11 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	my_exit(t_shell *sh, int status)
 	ft_lstclear(&sh->cmds, free_cmd);
 	ft_lstclear(&sh->env, free_env);
 	ft_lstclear(&sh->hidden_env, free_env);
-	// rl_clear_history();
+	rl_clear_history();
 	exit(status);
 }
 

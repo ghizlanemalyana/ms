@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:37:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/09 19:06:19 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:16:34 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int			ft_unset(t_shell *shell, char **av);
 
 // Parsing
 void		free_token(void *content);
-void		parse(t_shell *sh);
+int			parse(t_shell *sh);
 bool		is_expandable(char *line);
 int			expand(t_shell *sh, t_token *token);
 int			create_token(t_shell *sh, char *line, int *i);

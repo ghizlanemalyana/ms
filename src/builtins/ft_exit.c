@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 21:25:55 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 18:23:05 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:10:02 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	ft_exit(t_shell *sh, int ac, char **argv)
 {
 	int	status;
 
-	status = 0;
+	printf("%d\n", sh->exit_status);
+	status = sh->exit_status;
 	if (ft_lstsize(sh->cmds) == 1)
 		printf("exit\n");
 	if (ac >= 2)

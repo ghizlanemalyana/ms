@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:06:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/09 19:06:02 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/10 15:17:30 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,12 @@ static int	init_tokens(t_shell *sh, char *line)
 	return (status);
 }
 
-void	parse(t_shell *sh)
+int	parse(t_shell *sh)
 {
 	char	*line;
 	int		status;
 
+	status = SUCCESS;
 	line = readline(PROMPT);
 	if (line == NULL)
 	{
@@ -91,7 +92,6 @@ void	parse(t_shell *sh)
 		}
 		if (status == ERROR)
 			ft_putstr_fd("minishell: syntax error\n", 2);
-		sh->exit_status = status;
 	}
-	free(line);
+	return (free(line), status);
 }

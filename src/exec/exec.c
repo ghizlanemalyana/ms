@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 18:11:50 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 18:51:13 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/09 20:10:12 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	open_child(t_shell *sh, t_list *node, int *pipe_fds)
 		pipe(pipe_fds);
 	pid = ft_fork(sh, node, pipe_fds);
 	if (pid == -1)
-		return (-1);
+		return (perror("minishell: fork"), -1);
 	if (node->next)
 	{
 		close(pipe_fds[1]);
@@ -96,9 +96,10 @@ void	exec_bin(t_shell *sh)
 		pid = open_child(sh, cmds, pipe_fds);
 		if (pid == -1)
 		{
+			sh->exit_status = 1;
 			close(pipe_fds[0]);
 			close(pipe_fds[1]);
-			break ;
+			return ;
 		}
 		cmds = cmds->next;
 	}
@@ -106,7 +107,6 @@ void	exec_bin(t_shell *sh)
 		close(0);
 	waitpid(pid, &sh->exit_status, 0);
 	check_signal(sh);
-	set_signals_handlers();
 }
 
 void	exec(t_shell *sh)
