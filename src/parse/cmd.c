@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/06 19:05:12 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/09 19:36:26 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/14 03:05:45 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	set_redir(t_shell *sh, t_cmd *cmd, t_list *node)
 	}
 	new = ft_lstnew(redir);
 	if (new == NULL)
-		return (free(redir->filename), free(redir), FAILURE);
+		return (free_redir(redir), FAILURE);
 	ft_lstadd_back(&cmd->redirs, new);
 	return (SUCCESS);
 }
@@ -88,32 +88,15 @@ static int	count_argc(t_list *tokens)
 	return (counter);
 }
 
-char	**list_to_array(t_list *list)
+static int	set_cmd_attrs(t_shell *sh, t_list *tokens, t_cmd *cmd)
 {
-	char	**array;
-	t_env	*env;
-	int		i;
-
-	array = ft_calloc(sizeof(char *), ft_lstsize(list) + 1);
-	if (array == NULL)
-		return (NULL);
-	i = 0;
-	while (list != NULL)
-	{
-		env = list->content;
-		if (env->value != NULL)
-		{
-			array[i] = ft_strjoin(env->key, "=");
-			if (array[i] == NULL)
-				return (free_array(array), NULL);
-			array[i] = ft_strjoin_free(array[i], env->value, 1);
-			if (array[i] == NULL)
-				return (free_array(array), NULL);
-			i++;
-		}
-		list = list->next;
-	}
-	return (array);
+	cmd->argc = count_argc(tokens);
+	cmd->argv = ft_calloc(sizeof(char *), (cmd->argc + 1));
+	cmd->envp = list_to_array(sh->env);
+	if (cmd->argv == NULL || cmd->envp == NULL
+		|| set_cmd(sh, tokens, cmd) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 int	init_cmd(t_shell *sh)
@@ -127,14 +110,12 @@ int	init_cmd(t_shell *sh)
 	{
 		cmd = ft_calloc(1, sizeof(t_cmd));
 		if (cmd == NULL)
-			return (FAILURE);
-		cmd->argc = count_argc(tokens);
-		cmd->argv = ft_calloc(sizeof(char *), (cmd->argc + 1));
-		cmd->envp = list_to_array(sh->env);
+			return (ft_lstclear(&sh->cmds, free_cmd), FAILURE);
+		if (set_cmd_attrs(sh, tokens, cmd) == FAILURE)
+			return (free_cmd(cmd), ft_lstclear(&sh->cmds, free_cmd), FAILURE);
 		node = ft_lstnew(cmd);
-		if (cmd->argv == NULL || cmd->envp == NULL || node == NULL
-			|| set_cmd(sh, tokens, cmd) == FAILURE)
-			return (free_cmd(cmd), FAILURE);
+		if (node == NULL)
+			return (free_cmd(cmd), ft_lstclear(&sh->cmds, free_cmd), FAILURE);
 		cmd->is_builtin = is_builtin(cmd->argv[0]);
 		ft_lstadd_back(&sh->cmds, node);
 		while (tokens != NULL && ((t_token *)tokens->content)->type != PIPE)

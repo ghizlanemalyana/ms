@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 18:10:52 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/08 19:22:15 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/14 00:57:56 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,14 +79,14 @@ static int	add_token(t_shell *sh, t_token *new)
 					return (FAILURE);
 			}
 			last->linked = new->linked;
+			last->quoted = new->quoted;
 			return (free_token(new), SUCCESS);
 		}
 	}
 	node = ft_lstnew(new);
 	if (node == NULL)
 		return (FAILURE);
-	ft_lstadd_back(&sh->tokens, node);
-	return (SUCCESS);
+	return (ft_lstadd_back(&sh->tokens, node), SUCCESS);
 }
 
 static bool	is_token_expandable(t_shell *sh, t_token *token)
@@ -120,24 +120,15 @@ int	create_token(t_shell *sh, char *line, int *i)
 	if (token->type == ARG)
 	{
 		token->quoted = (line[*i] == '"' || line[*i] == '\'');
-		if (ft_strchr("|><\t ",
-				*(&line[*i] + token->len + (2 * (token->quoted)))) == NULL)
-			token->linked = true;
 		token->content = ft_substr(line, *i + token->quoted, token->len);
 		if (token->content == NULL)
 			return (free_token(token), FAILURE);
 		token->expandable = line[*i] != '\'' && is_token_expandable(sh, token);
 	}
 	*i += token->len + 2 * token->quoted;
+	if (token->type == ARG && ft_strchr("|><\t ", line[*i]) == NULL)
+		token->linked = true;
 	if (add_token(sh, token) == FAILURE)
 		return (free_token(token), FAILURE);
 	return (SUCCESS);
 }
-
-// echo "$USER""$PWD"
-// echo "$USER"$SDG"$PWD"
-
-// last->content : gmalyanain
-// last->linked : true
-
-// new: in

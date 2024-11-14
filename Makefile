@@ -8,7 +8,7 @@ SOURCES = src/main.c src/signals.c src/utils.c \
 OBJS = $(SOURCES:.c=.o)
 LIB_DIR = libft
 LIBFT = $(LIB_DIR)/libft.a
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -fsanitize=address -Wall -Wextra -Werror
 NAME = minishell
 
 all: $(LIB_DIR) $(NAME)

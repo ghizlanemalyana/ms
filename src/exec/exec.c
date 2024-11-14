@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 18:11:50 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/09 20:10:12 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/14 03:29:09 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,29 +84,31 @@ void	exec_builtin(t_shell *sh)
 	sh->exit_status = status;
 }
 
-void	exec_bin(t_shell *sh)
+void    exec_bin(t_shell *sh)
 {
-	int		pid;
-	int		pipe_fds[2];
-	t_list	*cmds;
+    int     pid;
+    int     pipe_fds[2];
+    t_list  *cmds;
 
-	cmds = sh->cmds;
-	while (cmds)
-	{
-		pid = open_child(sh, cmds, pipe_fds);
-		if (pid == -1)
-		{
-			sh->exit_status = 1;
-			close(pipe_fds[0]);
-			close(pipe_fds[1]);
-			return ;
-		}
-		cmds = cmds->next;
-	}
-	if (sh->cmds->next)
-		close(0);
-	waitpid(pid, &sh->exit_status, 0);
-	check_signal(sh);
+    cmds = sh->cmds;
+    while (cmds)
+    {
+        pid = open_child(sh, cmds, pipe_fds);
+        if (pid == -1)
+        {
+            sh->exit_status = 1;
+            close(pipe_fds[0]);
+            close(pipe_fds[1]);
+            return ;
+        }
+        cmds = cmds->next;
+    }
+    if (sh->cmds->next)
+        close(0);
+    waitpid(pid, &sh->exit_status, 0);
+    while (wait(NULL) != -1)
+        ;
+    check_signal(sh);
 }
 
 void	exec(t_shell *sh)
@@ -129,4 +131,5 @@ void	exec(t_shell *sh)
 		dup2(stdin_fd, 0);
 		close(stdin_fd);
 	}
+	signal(SIGINT, sigint_handler);
 }

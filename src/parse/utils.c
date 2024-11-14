@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/12 14:49:42 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/03 18:30:33 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/14 02:36:07 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	free_redir(void *content)
 	t_redir	*redir;
 
 	redir = content;
+	if (redir->heredoc_fd > 0)
+		close(redir->heredoc_fd);
 	free(redir->filename);
 	free(redir);
 }
@@ -58,4 +60,32 @@ bool	is_builtin(char *cmd)
 		|| !ft_strcmp(cmd, "exit"))
 		return (true);
 	return (false);
+}
+
+char	**list_to_array(t_list *list)
+{
+	char	**array;
+	t_env	*env;
+	int		i;
+
+	array = ft_calloc(sizeof(char *), ft_lstsize(list) + 1);
+	if (array == NULL)
+		return (NULL);
+	i = 0;
+	while (list != NULL)
+	{
+		env = list->content;
+		if (env->value != NULL)
+		{
+			array[i] = ft_strjoin(env->key, "=");
+			if (array[i] == NULL)
+				return (free_array(array), NULL);
+			array[i] = ft_strjoin_free(array[i], env->value, 1);
+			if (array[i] == NULL)
+				return (free_array(array), NULL);
+			i++;
+		}
+		list = list->next;
+	}
+	return (array);
 }

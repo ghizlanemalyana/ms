@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/13 16:19:08 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/02 21:41:24 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/14 02:16:56 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	expand(t_shell *sh, t_token *token)
 		{
 			token->content = get_env(sh->env, token->content + 1);
 			if (token->content == NULL)
-				return (SUCCESS);
+				return (free(ptr), SUCCESS);
 			token->content = ft_strdup(token->content);
 		}
 	}

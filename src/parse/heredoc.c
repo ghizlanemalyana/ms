@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 21:48:56 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/08 22:19:05 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/14 03:23:48 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ int	set_heredoc(t_shell *sh, t_redir *redir, t_token *token)
 
 	if (open_fds(fds) == FAILURE)
 		return (FAILURE);
-	signal(SIGINT, heredoc_handler);
 	stdin_fd = dup(STDIN_FILENO);
-	redir->fd = fds[READ_FD];
+	redir->heredoc_fd = fds[READ_FD];
+	signal(SIGINT, heredoc_handler);
 	status = open_heredoc(sh, token, fds[WRITE_FD]);
+	signal(SIGINT, sigint_handler);
 	if (status == FAILURE)
 		close(fds[READ_FD]);
-	set_signals_handlers();
 	dup2(stdin_fd, STDIN_FILENO);
 	close(stdin_fd);
 	close(fds[WRITE_FD]);

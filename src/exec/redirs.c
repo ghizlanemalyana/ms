@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 18:12:50 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/09 19:21:27 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/12 18:58:42 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static void	close_fds(t_cmd *cmd)
 	close_fd(cmd->in);
 	close_fd(cmd->out);
 }
-
-static int	open_fds(t_cmd *cmd, t_redir *redir)
+static int	open_fd(t_cmd *cmd, t_redir *redir)
 {
 	if (redir->type == REDIR_IN)
 	{
@@ -34,7 +33,7 @@ static int	open_fds(t_cmd *cmd, t_redir *redir)
 	else if (redir->type == HEREDOC)
 	{
 		close_fd(cmd->in);
-		cmd->in = redir->fd;
+		cmd->in = redir->heredoc_fd;
 	}
 	else if (redir->type == REDIR_OUT)
 	{
@@ -65,7 +64,7 @@ int	open_redirs(t_cmd *cmd)
 		redir = redirs->content;
 		if (redir->type != HEREDOC && redir->filename == NULL)
 			return (close_fds(cmd), ft_putstr_fd(AMBG, 2), FAILURE);
-		if (open_fds(cmd, redir) == FAILURE)
+		if (open_fd(cmd, redir) == FAILURE)
 			return (FAILURE);
 		redirs = redirs->next;
 	}

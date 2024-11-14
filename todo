@@ -1,1 +1,3 @@
-exit
+free(getcwd(NULL, 0));
+
+Syntax error

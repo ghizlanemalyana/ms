@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 21:06:06 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/10 15:17:30 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/14 03:08:53 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	check_syntax(t_shell *sh)
 	tokens = sh->tokens;
 	if (tokens == NULL)
 		return (SUCCESS);
-	if (tokens && ((t_token *)tokens->content)->type == PIPE)
+	if (((t_token *)tokens->content)->type == PIPE)
 		return (ERROR);
 	if (isoperator(ft_lstlast(tokens)->content))
 		return (ERROR);
@@ -74,15 +74,15 @@ int	parse(t_shell *sh)
 
 	status = SUCCESS;
 	line = readline(PROMPT);
+	update_exit_status(sh);
 	if (line == NULL)
 	{
 		printf("\033[F\033[2Cexit\n");
-		my_exit(sh, 0);
+		my_exit(sh, sh->exit_status);
 	}
 	if (ft_strlen(line) > 0)
 	{
 		add_history(line);
-		update_exit_status(sh);
 		status = init_tokens(sh, line);
 		if (status == SUCCESS)
 		{
@@ -93,5 +93,5 @@ int	parse(t_shell *sh)
 		if (status == ERROR)
 			ft_putstr_fd("minishell: syntax error\n", 2);
 	}
-	return (free(line), status);
+	return (free(line), ft_lstclear(&sh->tokens, free_token), status);
 }

@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:00:05 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/07 20:28:42 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/14 01:37:01 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,18 @@ int	append_env(t_list **list, char *key, char *value)
 {
 	char	*old_value;
 	char	*new_value;
+	int		status;
 
 	old_value = get_env(*list, key);
 	if (old_value == NULL)
-		return (create_env(list, key, value));
+		return (set_env(list, key, value));
 	new_value = ft_strjoin(old_value, value);
 	if (new_value == NULL)
 		return (FAILURE);
 	unset_env(list, key);
-	return (create_env(list, key, new_value));
+	status = create_env(list, key, new_value);
+	free(new_value);
+	return (status);
 }
 
 char	*get_env(t_list *list, char *key)

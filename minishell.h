@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 11:37:40 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/11/10 15:16:34 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/14 02:36:31 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 # define MINISHELL_H
 
 # include "libft/libft.h"
-# include <string.h>
 # include <stdio.h>
 # include <errno.h>
 # include <limits.h>
-# include <sys/stat.h>
+# include <sys/wait.h>
 # include <termios.h>
 # include <fcntl.h>
 # include <sys/stat.h>
@@ -72,7 +71,7 @@ typedef struct s_token
 
 typedef struct s_redir
 {
-	int			fd;
+	int			heredoc_fd;
 	char		*filename;
 	t_type		type;
 }	t_redir;
@@ -123,6 +122,7 @@ void		set_signals_handlers(void);
 void		sigint_handler(int sig);
 
 // Commmands
+char		**list_to_array(t_list *list);
 void		free_cmd(void *content);
 int			init_cmd(t_shell *sh);
 
@@ -147,6 +147,7 @@ char		*ft_strjoin_free(char *s1, char *s2, int to_free);
 bool		isoperator(t_token *token);
 bool		isredir(t_token *token);
 void		free_array(char **array);
+void		free_redir(void *content);
 void		my_exit(t_shell *sh, int status);
 
 // Execution

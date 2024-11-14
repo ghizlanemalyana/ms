@@ -6,7 +6,7 @@
 /*   By: gmalyana <gmalyana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 17:34:36 by gmalyana          #+#    #+#             */
-/*   Updated: 2024/10/18 00:20:49 by gmalyana         ###   ########.fr       */
+/*   Updated: 2024/11/13 15:26:37 by gmalyana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stddef.h>
 # include <stdint.h>
 
 typedef struct s_list
